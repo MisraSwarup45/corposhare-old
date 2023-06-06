@@ -7,4 +7,4 @@ const ListJobs = () => {
   )
 }
 
-export default ListJobs;
+export default ListJobs
