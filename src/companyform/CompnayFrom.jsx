@@ -89,10 +89,6 @@ function Companyform() {
           </div>
 
           <div className="company-from-beta">
-            <div className="from-beta-heading">
-              <span>Sign Up</span>
-              <div>Have an Account ? Login</div>
-            </div>
 
             <form onSubmit={sending}>
               <div className="from-beta-name">
