@@ -8,6 +8,8 @@ import HomeDashboard from "./HomeDashBoard";
 import AddEmp from "./AddEmp"
 import AddProject from "./AddProject.jsx"
 import Logo from '../img/CorposLogo.png';
+import Navbar from "./Navbar";
+import Footer from "./Footer";
   
   
 export default function DashBoard(){
@@ -15,6 +17,7 @@ export default function DashBoard(){
     const [active, setactive] = useState(1);
 
     return (<>
+        <Navbar />
         <div className="main_DashBoard">
                 <div className="sideBar">
                     <a href="/" className="logo">
@@ -44,6 +47,6 @@ export default function DashBoard(){
                     </div>
                 </div>
         </div>
-
+        <Footer />
     </>)
 }
