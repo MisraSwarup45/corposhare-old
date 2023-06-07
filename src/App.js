@@ -16,6 +16,12 @@ import LandingPage from './companyform/LandingPage';
 import ListProjects from './companyform/ListProjects';
 import AddProject from './companyform/AddProject';
 import ProjectDetails from './companyform/ProjectDetails';
+import ContactUs from './companyform/ContactUs.jsx';
+import About from './companyform/About.jsx';
+import Services from './companyform/Services';
+import PrivacyPolicy from './companyform/PrivacyPolicy';
+import TermsOfUse from './companyform/TermsOfUse';
+import CookiesPolicy from './companyform/CookiesPolicy';
 
 function App() {
   return (
@@ -30,6 +36,12 @@ function App() {
           <Route exact path='/list-projects' element={<ListProjects />}></Route>
           <Route exact path='/post-project' element={<AddProject />}></Route>
           <Route exact path='/project-details' element={<ProjectDetails />}></Route>
+          <Route exact path='/contact' element={<ContactUs />}></Route>
+          <Route exact path='/about' element={<About />}></Route>
+          <Route exact path='/services' element={<Services />}></Route>
+          <Route exact path='/privacy-policy' element={<PrivacyPolicy />}></Route>
+          <Route exact path='/terms-of-use' element={<TermsOfUse />}></Route>
+          <Route exact path='/cookies-policy' element={<CookiesPolicy />}></Route>
           <Route exact path='/company_get' element={<CompanyGet />}></Route>
           <Route exact path='/company_post' element={<CompanyPost />}></Route>
           <Route exact path='/company_single' element={<GetSingleCompany />}></Route>
