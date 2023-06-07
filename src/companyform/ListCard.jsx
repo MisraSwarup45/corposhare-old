@@ -4,27 +4,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import './ListCard.scss';
 
-const ListCard = ({ photo, name, companyName, mailId, contactNumber, jobPosition }) => {
+const ListCard = ({ company, title, pay, duration, employee_required, skills, email, contact_number }) => {
   return (
     <div className="list-card">
-      <div className="list-card__image-container">
-        <img className="list-card__photo" src={photo} alt={name} />
-      </div>
       <div className="list-card__info">
-        <h2 className="list-card__name">{name}</h2>
-        <p className="list-card__position">{jobPosition}</p>
-        <p className="list-card__company">{companyName}</p>
+        <h2 className="list-card__company">{company}</h2>
+        <p className="list-card__title">{title}</p>
+        <p className="list-card__pay">Pay: {pay}</p>
+        <p className="list-card__duration">Duration: {duration}</p>
+        <p className="list-card__employee-required">Employee Required: {employee_required}</p>
+        <p className="list-card__skills">Skills: {skills}</p>
         <div className="list-card__contact">
           <div className="list-card__contact-icon">
             <FontAwesomeIcon icon={faEnvelope} />
           </div>
-          <p>{mailId}</p>
+          <p>{email}</p>
         </div>
         <div className="list-card__contact">
           <div className="list-card__contact-icon">
             <FontAwesomeIcon icon={faPhone} />
           </div>
-          <p>{contactNumber}</p>
+          <p>{contact_number}</p>
         </div>
         <button className="list-card__button">Apply Now</button>
       </div>
@@ -33,12 +33,14 @@ const ListCard = ({ photo, name, companyName, mailId, contactNumber, jobPosition
 };
 
 ListCard.propTypes = {
-  photo: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  companyName: PropTypes.string.isRequired,
-  mailId: PropTypes.string.isRequired,
-  contactNumber: PropTypes.string.isRequired,
-  jobPosition: PropTypes.string.isRequired,
+  company: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  pay: PropTypes.string.isRequired,
+  duration: PropTypes.string.isRequired,
+  employee_required: PropTypes.string.isRequired,
+  skills: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  contact_number: PropTypes.string.isRequired,
 };
 
 export default ListCard;

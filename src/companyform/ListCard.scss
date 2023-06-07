@@ -96,3 +96,19 @@
         }
     }
 }
+
+
+.list-card__pay,
+.list-card__duration,
+.list-card__employee-required,
+.list-card__skills {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 6px;
+
+  svg {
+    margin-right: 6px;
+  }
+}

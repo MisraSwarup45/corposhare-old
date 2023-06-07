@@ -14,7 +14,8 @@ import DashBoard from "./companyform/DashBoard.jsx"
 import AddEmp from "./companyform/AddEmp.jsx"
 import LandingPage from './companyform/LandingPage';
 import ListProjects from './companyform/ListProjects';
-import PostProject from './companyform/PostProject';
+import AddProject from './companyform/AddProject';
+import ProjectDetails from './companyform/ProjectDetails';
 
 function App() {
   return (
@@ -27,7 +28,8 @@ function App() {
           <Route exact path='/company-register' element={<Companyform />}> </Route>
           <Route exact path='/admin-dashBoard' element={<DashBoard />}></Route>
           <Route exact path='/list-projects' element={<ListProjects />}></Route>
-          <Route exact path='/post-project' element={<PostProject />}></Route>
+          <Route exact path='/post-project' element={<AddProject />}></Route>
+          <Route exact path='/project-details' element={<ProjectDetails />}></Route>
           <Route exact path='/company_get' element={<CompanyGet />}></Route>
           <Route exact path='/company_post' element={<CompanyPost />}></Route>
           <Route exact path='/company_single' element={<GetSingleCompany />}></Route>
