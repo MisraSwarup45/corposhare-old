@@ -30,8 +30,7 @@ const CompanyList = () => {
         {
             id: 1,
             logo: 'https://loremflickr.com/320/320/company',
-            company_name: 'Sample Company 1',
-            description: 'Sample description for Company 1',
+            name: 'Sample Company 1',
             email: 'sample1@example.com',
             location: 'Sample Location 1',
             founder: 'Sample Founder 1',
@@ -44,8 +43,7 @@ const CompanyList = () => {
         {
             id: 2,
             logo: 'https://loremflickr.com/320/320/company',
-            company_name: 'Sample Company 2',
-            description: 'Sample description for Company 2',
+            name: 'Sample Company 2',
             email: 'sample2@example.com',
             location: 'Sample Location 2',
             founder: 'Sample Founder 2',
@@ -71,7 +69,7 @@ const CompanyList = () => {
                                     <div className="company-card__logo">
                                         <img src={company.logo} alt="Company Logo" />
                                     </div>
-                                    <h2>{company.company_name}</h2>
+                                    <h2>{company.name}</h2>
                                 </div>
                                 <p>{company.description}</p>
                                 <div className="company-card__info">

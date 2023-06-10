@@ -5,15 +5,16 @@ import Footer from './Footer';
 
 const CompanyProfile = () => {
   const companyInfoData = {
-    compname: 'ABC Company',
-    logo: 'https://loremflickr.com/220/230/logo.png',
-    email: 'info@abccompany.com',
-    location: 'New York',
-    founder: 'John Doe',
-    employees: '100',
-    year: '2005',
-    services: ['Web Development', 'Mobile App Development', 'UI/UX Design'],
-    desc: 'ABC Company is a leading technology firm specializing in web and mobile app development. With a team of experienced professionals, we deliver innovative solutions to our clients worldwide.',
+    name: 'Sample Company 2',
+    logo: 'https://loremflickr.com/320/320/company',
+    email: 'sample2@example.com',
+    location: 'Sample Location 2',
+    founder: 'Sample Founder 2',
+    employees: '200',
+    year: '2010',
+    valuation: '$500 million',
+    services: ['Service 4', 'Service 5'],
+    desc: 'Sample description for Company 2',
   };
 
   const [companyInfo, setCompanyInfo] = useState(companyInfoData);
@@ -27,7 +28,6 @@ const CompanyProfile = () => {
     setIsEditing(false);
     try {
       const response = await fetch('YOUR_API_ENDPOINT', {
-        //http://3.145.60.152/api/v1/company/1
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -36,14 +36,11 @@ const CompanyProfile = () => {
       });
 
       if (response.ok) {
-        // Handle successful response
         console.log('Company information updated successfully.');
       } else {
-        // Handle error response
         console.error('Failed to update company information.');
       }
     } catch (error) {
-      // Handle network error
       console.error('An error occurred while updating company information.', error);
     }
   };
@@ -60,7 +57,7 @@ const CompanyProfile = () => {
     <>
       <Navbar />
       <div className="company-profile">
-        <h2>{companyInfo.compname}</h2>
+        <h2>{companyInfo.name}</h2>
         <div className="company-details">
           <div className="detail logo">
             <h3>Logo</h3>
@@ -119,6 +116,9 @@ const CompanyProfile = () => {
           </div>
           <div className="detail">
             <h3>Employees</h3>
+          </div>
+          <div className="detail">
+            <h3>Employees</h3>
             {isEditing ? (
               <input
                 className="edit-field"
@@ -141,6 +141,19 @@ const CompanyProfile = () => {
               />
             ) : (
               <p>{companyInfo.year}</p>
+            )}
+          </div>
+          <div className="detail">
+            <h3>Valuation</h3>
+            {isEditing ? (
+              <input
+                className="edit-field"
+                name="valuation"
+                value={companyInfo.valuation}
+                onChange={handleChange}
+              />
+            ) : (
+              <p>{companyInfo.valuation}</p>
             )}
           </div>
           <div className="detail">
@@ -188,4 +201,3 @@ const CompanyProfile = () => {
 };
 
 export default CompanyProfile;
-
