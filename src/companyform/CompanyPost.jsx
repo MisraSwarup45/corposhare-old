@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+
 export default function CompanyPost() {
   const [userid, setuserid] = useState();
   const [info, setinfo] = useState({
@@ -20,22 +21,47 @@ export default function CompanyPost() {
     var decoded = jwt_decode(TOKEN);
     setuserid(decoded.user_id);
   }, [])
+  // async function req_post(e) {
+  //   e.preventDefault();
+  //   const TOKEN = Cookies.get('accesstoken');
+  //   try {
+  //     const data = await axios.post('http://3.139.87.105/api/api/companies/', {
+  //       founder: info.founder,
+  //       description: info.description,
+  //       services_offered: info.services_offered,
+  //       logo: info.logo,
+  //       year_established: info.year_established,
+  //       employees: info.employees,
+  //       valuation: info.valuation,
+  //       user: userid,
+  //     }, {
+  //       headers: {
+  //         Authorization: `Bearer ${TOKEN}`,
+  //         'Content-Type': 'application/json'
+  //       }
+  //     });
+  //     console.log(data);
+  //   }
+  //   catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
   async function req_post(e) {
+
     e.preventDefault();
-    const TOKEN = Cookies.get('accesstoken');
     try {
-      const data = await axios.post('http://3.139.87.105/api/api/companies/', {
+      const data = await axios.post('http://3.145.60.152/api/v1/companies/', {
         founder: info.founder,
         description: info.description,
         services_offered: info.services_offered,
-        logo: info.logo,
+        logo: "https://picsum.photos/200/300",
         year_established: info.year_established,
         employees: info.employees,
         valuation: info.valuation,
         user: userid,
       }, {
         headers: {
-          Authorization: `Bearer ${TOKEN}`,
           'Content-Type': 'application/json'
         }
       });

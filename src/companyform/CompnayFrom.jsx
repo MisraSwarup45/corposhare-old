@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
-import axios from 'axios';
 import Cookies from 'js-cookie';
 import jwt_decode from 'jwt-decode';
 import Navbar from './Navbar';
@@ -24,18 +23,19 @@ const CompanyForm = () => {
     founder: '',
     employees: '',
     year: '',
+    valuation: '',
     desc: '',
   });
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  useEffect(() => {
-    const token = Cookies.get('accesstoken');
-    if (token) {
-      const decoded = jwt_decode(token);
-      setUserId(decoded.user_id);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = Cookies.get('accesstoken');
+  //   if (token) {
+  //     const decoded = jwt_decode(token);
+  //     setUserId(decoded.user_id);
+  //   }
+  // }, []);
 
   const handleChange = (e) => {
     setInfo((prevInfo) => ({
@@ -60,6 +60,7 @@ const CompanyForm = () => {
       founder: info.founder,
       employees: info.employees,
       year: info.year,
+      valuation: info.valuation,
       services: selectedOption.map((option) => option.value),
       desc: info.desc,
     };
@@ -67,34 +68,36 @@ const CompanyForm = () => {
     console.log(data);
 
     try {
-      const response = await axios.post('/api/your-endpoint', data);
-      console.log(response);
-      // Reset form and state
-      setInfo({
-        compname: '',
-        email: '',
-        location: '',
-        founder: '',
-        employees: '',
-        year: '',
-        desc: '',
+      const response = await fetch('/api/your-endpoint', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
-      setSelectedOption([]);
-      setImage('');
-      setErrorMessage('');
-    } catch (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-        setErrorMessage(error.response.data.message);
-      } else if (error.request) {
-        console.log(error.request);
-        setErrorMessage('Network error occurred');
+
+      if (response.ok) {
+        console.log('Application submitted successfully!');
+        // Reset form and state
+        setInfo({
+          compname: '',
+          email: '',
+          location: '',
+          founder: '',
+          employees: '',
+          year: '',
+          valuation: '',
+          desc: '',
+        });
+        setSelectedOption([]);
+        setImage('');
+        setErrorMessage('');
       } else {
-        console.log('Error', error.message);
-        setErrorMessage('Error occurred');
+        throw new Error('Network response was not ok');
       }
+    } catch (error) {
+      console.log('Error:', error.message);
+      setErrorMessage('Error occurred');
     }
 
     setIsLoading(false);
@@ -122,6 +125,7 @@ const CompanyForm = () => {
                   <br />
                   <input
                     type="text"
+
                     id="company-name"
                     name="compname"
                     required
@@ -205,7 +209,20 @@ const CompanyForm = () => {
                       placeholder="Eg: 2022"
                     />
                   </div>
+
                 </div>
+              </div>
+              <div className="div4">
+                <label htmlFor="company-valuation">Valuation</label>
+                <br />
+                <input
+                  type="text"
+                  id="company-valuation"
+                  name="valuation"
+                  required
+                  onChange={handleChange}
+                  placeholder="Eg: $1,000,000"
+                />
               </div>
               <div className="from-beta-dropdown">
                 <label htmlFor="company-services">Services Offered</label>
@@ -246,5 +263,3 @@ const CompanyForm = () => {
 };
 
 export default CompanyForm;
-
-

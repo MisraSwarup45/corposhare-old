@@ -27,6 +27,7 @@ const CompanyProfile = () => {
     setIsEditing(false);
     try {
       const response = await fetch('YOUR_API_ENDPOINT', {
+        //http://3.145.60.152/api/v1/company/1
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

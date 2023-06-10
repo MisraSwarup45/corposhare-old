@@ -1,37 +1,48 @@
 import React, { useState } from "react";
-import axios from "axios";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import "./Addproject.scss";
 
 export default function AddProject() {
     const [project, setProject] = useState({
-        company: "",
-        title: "",
-        pay: "",
-        duration: "",
-        employee_required: "",
-        skills: "",
-        description: "",
-        email: "",
-        contact_number: "",
-    });
+        id: 1,
+        title: "Apple Vision",
+        employees_required: 50,
+        skills_req: "THree js",
+        time_tobe_dedicated: "fshith",
+        pay: "dhsmkthnr",
+        duration: "6 months",
+        description: "eheyet",
+        created_at: "2023-06-08",
+        updated_at: "2023-06-08",
+        image: "Link here",
+        email: "jane.smith@example.com",
+        contact_number: "987-654-3210",
+        company: 1,
+      });
+      
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setProject((prevProject) => ({
             ...prevProject,
-            [name]: value,
+            [name]: name === "created_at" || name === "updated_at" ? new Date(value).toISOString().split("T")[0] : value,
         }));
     };
 
     const handleAddProject = () => {
         // Make the POST request with the project data
-        axios
-            .post("/api/projects", project)
-            .then((response) => {
+        fetch("/api/projects", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(project),
+        })
+            .then((response) => response.json())
+            .then((data) => {
                 // Handle the response or perform any additional actions
-                console.log("Project added successfully:", response.data);
+                console.log("Project added successfully:", data);
             })
             .catch((error) => {
                 // Handle any errors
@@ -51,7 +62,6 @@ export default function AddProject() {
                             type="text"
                             id="company"
                             name="company"
-                            placeholder="eg: Amazon"
                             value={project.company}
                             onChange={handleInputChange}
                         />
@@ -62,7 +72,6 @@ export default function AddProject() {
                             type="text"
                             id="title"
                             name="title"
-                            placeholder="eg: Project Title"
                             value={project.title}
                             onChange={handleInputChange}
                         />
@@ -73,7 +82,6 @@ export default function AddProject() {
                             type="email"
                             id="email"
                             name="email"
-                            placeholder="eg: example@example.com"
                             value={project.email}
                             onChange={handleInputChange}
                         />
@@ -84,8 +92,28 @@ export default function AddProject() {
                             type="tel"
                             id="contact_number"
                             name="contact_number"
-                            placeholder="eg: 123-456-7890"
                             value={project.contact_number}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div className="input_con">
+                        <label htmlFor="created_at">Created At</label>
+                        <input
+                            type="date"
+                            id="created_at"
+                            name="created_at"
+                            value={project.created_at}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div className="input_con">
+                        <label htmlFor="updated_at">Updated At</label>
+                        <input
+                            type="date"
+                            id="updated_at"
+                            name="updated_at"
+
+                            value={project.updated_at}
                             onChange={handleInputChange}
                         />
                     </div>
@@ -96,7 +124,6 @@ export default function AddProject() {
                                 type="text"
                                 id="pay"
                                 name="pay"
-                                placeholder="eg: 50000"
                                 value={project.pay}
                                 onChange={handleInputChange}
                             />
@@ -107,19 +134,17 @@ export default function AddProject() {
                                 type="text"
                                 id="duration"
                                 name="duration"
-                                placeholder="eg: 2 months"
                                 value={project.duration}
                                 onChange={handleInputChange}
                             />
                         </div>
                         <div className="input_wrap">
-                            <label htmlFor="employee_required">Employee Required</label>
+                            <label htmlFor="employees_required">Employees Required</label>
                             <input
                                 type="number"
-                                id="employee_required"
-                                name="employee_required"
-                                placeholder="eg: 10"
-                                value={project.employee_required}
+                                id="employees_required"
+                                name="employees_required"
+                                value={project.employees_required}
                                 onChange={handleInputChange}
                             />
                         </div>
@@ -130,8 +155,7 @@ export default function AddProject() {
                             type="text"
                             id="skills"
                             name="skills"
-                            placeholder="eg: Reactjs"
-                            value={project.skills}
+                            value={project.skills_req}
                             onChange={handleInputChange}
                         />
                     </div>
@@ -141,7 +165,6 @@ export default function AddProject() {
                             type="text"
                             id="description"
                             name="description"
-                            placeholder="eg: Details about the project"
                             value={project.description}
                             onChange={handleInputChange}
                         />

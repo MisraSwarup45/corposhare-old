@@ -23,6 +23,8 @@ import PrivacyPolicy from './companyform/PrivacyPolicy';
 import TermsOfUse from './companyform/TermsOfUse';
 import CookiesPolicy from './companyform/CookiesPolicy';
 import CompanyProfile from './companyform/CompanyProfile';
+import CompanyList from './companyform/CompanyList';
+// import CompanyPost from './companyform/CompanyPost.jsx';
 
 function App() {
   return (
@@ -33,6 +35,7 @@ function App() {
           <Route exact path="/signup" element={<Register />}> </Route>
           <Route exact path="/login" element={<LoginPage />}> </Route>
           <Route exact path='/company-register' element={<Companyform />}> </Route>
+          <Route exact path='/company-list' element={<CompanyList />}> </Route>
           <Route exact path='/company-profile' element={<CompanyProfile />}> </Route>
           <Route exact path='/admin-dashBoard' element={<DashBoard />}></Route>
           <Route exact path='/list-projects' element={<ListProjects />}></Route>

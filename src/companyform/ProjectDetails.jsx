@@ -5,15 +5,22 @@ import Footer from './Footer';
 
 const ProjectDetails = () => {
     const project = {
-        company: 'XYZ Tech Solutions',
-        title: 'Data Analyst',
-        pay: '55000',
-        duration: '6 months',
-        employee_required: '5',
-        skills: 'SQL, Python',
-        description: 'Sed et consectetur velit. Aliquam vestibulum orci sed lacus dignissim cursus. Nullam ac hendrerit tortor. Integer pretium sem ipsum, ut gravida quam placerat eu. Aliquam erat volutpat. Cras fringilla, neque non ultrices tempor, odio metus porta odio, et dapibus urna metus vitae sem. Sed efficitur fringilla ipsum, in condimentum nunc. Fusce laoreet tortor vitae nunc maximus ullamcorper. Quisque non urna nec tellus pulvinar efficitur. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed ac sapien eu felis vulputate pulvinar at at enim. Sed nec dignissim ligula, id volutpat ipsum. In rhoncus erat vitae justo faucibus, sed bibendum metus aliquam. Vestibulum porta metus ut tempor commodo.',
-        email: 'mark.johnson@example.com',
-        contact_number: '456-789-1230',
+        id: 1,
+        title: "Web Development Project",
+        employees_required: 3,
+        skills_req: "HTML, CSS, JavaScript",
+        time_tobe_dedicated: "20 hours per week",
+        pay: "$30 per hour",
+        duration: "3 months",
+        description: "Creating a responsive website for a client",
+        created_at: "2023-06-08",
+        updated_at: "2023-06-08",
+        image: "https://example.com/project-image.jpg",
+        email: "client@example.com",
+        contact_number: "123-456-7890",
+        company: 1,
+        location: "New York City",
+        category: "Web Development",
     };
 
     const [termsAccepted, setTermsAccepted] = useState(false);
@@ -36,11 +43,13 @@ const ProjectDetails = () => {
                 <div className="project-details__content">
                     <section className="project-details__section">
                         <h2 className="project-details__title">{project.title}</h2>
-                        <p className="project-details__company">{project.company}</p>
+                        <p className="project-details__company">Company: {project.company}</p>
                         <p className="project-details__pay">Pay: {project.pay}</p>
                         <p className="project-details__duration">Duration: {project.duration}</p>
-                        <p className="project-details__employee-required">Employee Required: {project.employee_required}</p>
-                        <p className="project-details__skills">Skills: {project.skills}</p>
+                        <p className="project-details__employee-required">Employees Required: {project.employees_required}</p>
+                        <p className="project-details__skills">Skills Required: {project.skills_req}</p>
+                        <p className="project-details__created-at">Created At: {project.created_at}</p>
+                        <p className="project-details__updated-at">Updated At: {project.updated_at}</p>
                     </section>
                     <section className="project-details__section">
                         <h3 className="project-details__section-title">Description</h3>
