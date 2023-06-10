@@ -5,6 +5,7 @@ import jwt_decode from 'jwt-decode';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import './CompanyForm.scss';
+import { useNavigate } from 'react-router-dom';
 
 const CompanyForm = () => {
   const options = [
@@ -29,13 +30,17 @@ const CompanyForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  const navigate = useNavigate();
+
   // useEffect(() => {
   //   const token = Cookies.get('accesstoken');
-  //   if (token) {
-  //     const decoded = jwt_decode(token);
-  //     setUserId(decoded.user_id);
+  //   if (!token) {
+  //     navigate('/login');
+  //     return;
   //   }
-  // }, []);
+  //   const decoded = jwt_decode(token);
+  //   setUserId(decoded.user_id);
+  // }, [navigate]);
 
   const handleChange = (e) => {
     setInfo((prevInfo) => ({
@@ -53,24 +58,34 @@ const CompanyForm = () => {
     setIsLoading(true);
 
     const data = {
-      name: info.compname,
-      logo: image,
-      email: info.email,
-      location: info.location,
-      founder: info.founder,
-      employees: info.employees,
-      year: info.year,
-      valuation: info.valuation,
-      services: selectedOption.map((option) => option.value),
-      desc: info.desc,
+      // name: info.compname,
+      // logo: "https://loremflickr.com/320/240",
+      // email: info.email,
+      // location: info.location,
+      // founder: info.founder,
+      // employees: info.employees,
+      // year: info.year,
+      // valuation: info.valuation,
+      // services: selectedOption.map((option) => option.value),
+      // desc: info.desc,
+      // company_name: 1
+
+      // "founder": "Mridul Corpo",
+      // "description": "kjfalkdsjfoaihdsfiasdf",
+      // "services_offered": "gnsejrhejheriohriohriuwohbiurjbh",
+      // "logo": "Nuirgbueirgbeurigbeurgbue",
+      // "year_established": "2023-06-08",
+      // "employees": 7,
+      // "valuation": "slfnhtnhi",
+      // "company_name": 1
     };
 
     console.log(data);
 
     try {
-      const response = await fetch('/api/your-endpoint', {
+      const response = await fetch('http://13.59.41.70/api/v1/companies/', {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: JSON.stringify(info),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -103,9 +118,12 @@ const CompanyForm = () => {
     setIsLoading(false);
   };
 
+  
+
   return (
     <>
       <Navbar />
+      {/* <button onClick={deleteCompany}>Delete</button> */}
       <div className="main-company-form">
         <div className="company-from-wrapper">
           <div className="company-from-alpha">

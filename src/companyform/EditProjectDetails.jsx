@@ -1,72 +1,76 @@
-import React, { useState } from "react";
-import "./Addproject.scss";
+import React, { useState, useEffect } from 'react'
+import { useParams } from "react-router-dom";
 
-export default function AddProject() {
+const EditProjectDetails = () => {
+
+    const { id } = useParams();
+
     const [project, setProject] = useState({
-        title: "Swarup Kumar Misra",
-        employees_required: 53,
-        skills_req: "React js",
-        time_tobe_dedicated: "50 Hours",
-        pay: "200000",
-        duration: "7 months",
-        description: "lorem ipsum",
-        created_at: "2023-06-08",
-        updated_at: "2023-06-08",
-        image: "Link here",
-        email: "jane.corpo@corpo.com",
-        contact_number: "987-65234-3210",
-        comapny: 1,
+        title: "",
+        employees_required: 0,
+        skills_req: "",
+        time_tobe_dedicated: "",
+        pay: "",
+        duration: "",
+        description: "",
+        created_at: "",
+        updated_at: "",
+        image: "",
+        email: "",
+        contact_number: "",
+        comapny: 0,
     });
 
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setProject((prevProject) => ({
-            ...prevProject,
-            [name]: name === "created_at" || name === "updated_at" ? new Date(value).toISOString().split("T")[0] : value,
-        }));
-    };
+    
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProject((prevProject) => ({
+      ...prevProject,
+      [name]: name === 'created_at' || name === 'updated_at' ? new Date(value).toISOString().split('T')[0] : value,
+    }));
+  };
 
-    const handleAddProject = () => {
-        // Make the POST request with the project data
-        fetch("http://13.59.41.70/api/v1/projects/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(project),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                // Handle the response or perform any additional actions
-                console.log("Project added successfully:", data);
-                setProject({
-                    title: "",
-                    employees_required: 0,
-                    skills_req: "",
-                    time_tobe_dedicated: "",
-                    pay: "",
-                    duration: "",
-                    description: "",
-                    created_at: "",
-                    updated_at: "",
-                    image: "",
-                    email: "",
-                    contact_number: "",
-                    comapny: 0,
-                });
-            })
-            .catch((error) => {
-                // Handle any errors
-                console.error("Error adding project:", error);
-            });
-    };
+  useEffect(() => {
+    // Make the GET request with the project id
+    fetch(`http://13.59.41.70/api/v1/project/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response or perform any additional actions
+        console.log('Project details fetched successfully:', data);
+        setProject(data);
+      })
+      .catch((error) => {
+        // Handle any errors
+        console.error('Error fetching project details:', error);
+      });
+  }, []);
+
+  const updateProject = () => {
+    // Make the PUT request with the project data
+    fetch(`http://13.59.41.70/api/v1/project/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(project),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response or perform any additional actions
+        console.log('Project updated successfully:', data);
+      })
+      .catch((error) => {
+        // Handle any errors
+        console.error('Error updating project:', error);
+      });
+  };
 
     return (
         <>
             {/* <Navbar /> */}
             <div className="main_add_project">
-                <h2>Add Project</h2>
+                <h2>Edit Project</h2>
                 <div className="project_details">
                     <div className="input_con">
                         <label htmlFor="company">Company</label>
@@ -183,7 +187,7 @@ export default function AddProject() {
                     </div>
 
                     <div className="input_con button_con">
-                        <button onClick={handleAddProject}>Add Project</button>
+                        <button onClick={updateProject}>Update Project</button>
                         <button>Cancel</button>
                     </div>
                 </div>
@@ -192,3 +196,5 @@ export default function AddProject() {
         </>
     );
 }
+
+export default EditProjectDetails;

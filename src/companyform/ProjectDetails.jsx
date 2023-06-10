@@ -1,27 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from "react-router-dom";
 import './ProjectDetails.scss';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
 const ProjectDetails = () => {
-    const project = {
-        id: 1,
-        title: "Web Development Project",
-        employees_required: 3,
-        skills_req: "HTML, CSS, JavaScript",
-        time_tobe_dedicated: "20 hours per week",
-        pay: "$30 per hour",
-        duration: "3 months",
-        description: "Creating a responsive website for a client",
-        created_at: "2023-06-08",
-        updated_at: "2023-06-08",
-        image: "https://example.com/project-image.jpg",
-        email: "client@example.com",
-        contact_number: "123-456-7890",
-        company: 1,
-        location: "New York City",
-        category: "Web Development",
-    };
+    const [project, setProject] = useState({});
+
+    const { id } = useParams();
+
+    useEffect(() => {
+        // Make the GET request to fetch the project details
+        fetch(`http://13.59.41.70/api/v1/project/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setProject(data);
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error("Error fetching project:", error);
+            });
+
+        // and store it in the state variable
+    }, []);
 
     const [termsAccepted, setTermsAccepted] = useState(false);
 
@@ -36,6 +37,37 @@ const ProjectDetails = () => {
         }
     };
 
+    const handleDeleteClick = () => {
+        // Delete logic
+        fetch(`http://13.59.41.70/api/v1/project/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(project),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                // Handle the response or perform any additional actions
+                console.log('Project deleted successfully:', data);
+                setProject({
+                    title: "",
+                    employees_required: 0,
+                    skills_req: "",
+                    time_tobe_dedicated: "",
+                    pay: "",
+                    duration: "",
+                    description: "",
+                    created_at: "",
+                    updated_at: "",
+                    image: "",
+                    email: "",
+                    contact_number: "",
+                    comapny: 0,
+                });
+            });
+    };
+
     return (
         <div>
             <Navbar />
@@ -43,7 +75,7 @@ const ProjectDetails = () => {
                 <div className="project-details__content">
                     <section className="project-details__section">
                         <h2 className="project-details__title">{project.title}</h2>
-                        <p className="project-details__company">Company: {project.company}</p>
+                        <p className="project-details__company">Company: {project.comapny}</p>
                         <p className="project-details__pay">Pay: {project.pay}</p>
                         <p className="project-details__duration">Duration: {project.duration}</p>
                         <p className="project-details__employee-required">Employees Required: {project.employees_required}</p>
@@ -80,6 +112,21 @@ const ProjectDetails = () => {
                         >
                             Apply Now
                         </button>
+                        <button
+                            className="project-details__delete-button"
+                            onClick={handleDeleteClick}
+                        >
+                            Delete
+                        </button>
+                        <Link to={`edit-project/${id}`}>
+                            <button
+                                className="project-details__update-button"
+
+                            >
+                                Update
+                            </button>
+                        </Link>
+
                     </section>
                 </div>
             </div>

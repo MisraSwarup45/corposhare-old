@@ -1,33 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './CompanyProfile.scss';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
 const CompanyProfile = () => {
-  const companyInfoData = {
-    name: 'Sample Company 2',
-    logo: 'https://loremflickr.com/320/320/company',
-    email: 'sample2@example.com',
-    location: 'Sample Location 2',
-    founder: 'Sample Founder 2',
-    employees: '200',
-    year: '2010',
-    valuation: '$500 million',
-    services: ['Service 4', 'Service 5'],
-    desc: 'Sample description for Company 2',
-  };
-
-  const [companyInfo, setCompanyInfo] = useState(companyInfoData);
+  const [companyInfo, setCompanyInfo] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
   const handleEdit = () => {
+    console.log('Editing company information.');
     setIsEditing(true);
   };
 
   const handleSave = async () => {
     setIsEditing(false);
     try {
-      const response = await fetch('YOUR_API_ENDPOINT', {
+      const response = await fetch('http://13.59.41.70/api/v1/company/1/', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -53,9 +41,33 @@ const CompanyProfile = () => {
     }));
   };
 
+  useEffect(() => {
+    const fetchCompanyInfo = async () => {
+      try {
+        const response = await fetch('http://13.59.41.70/api/v1/company/1');
+        if (response.ok) {
+          const data = await response.json();
+          setCompanyInfo(data);
+        } else {
+          console.error('Failed to fetch company information.');
+        }
+      } catch (error) {
+        console.error('An error occurred while fetching company information.', error);
+      }
+    };
+
+    fetchCompanyInfo();
+  }, []);
+
+  if (!companyInfo) {
+    return <div>Loading...</div>;
+  }
+
+  console.log(companyInfo);
+
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="company-profile">
         <h2>{companyInfo.name}</h2>
         <div className="company-details">
@@ -95,12 +107,13 @@ const CompanyProfile = () => {
               </ul>
             ) : (
               <ul>
-                {companyInfo.services.map((service, index) => (
+                {companyInfo.services && companyInfo.services.map((service, index) => (
                   <li key={index}>{service}</li>
                 ))}
               </ul>
             )}
           </div>
+
           <div className="detail">
             <h3>Founder</h3>
             {isEditing ? (
@@ -113,9 +126,6 @@ const CompanyProfile = () => {
             ) : (
               <p>{companyInfo.founder}</p>
             )}
-          </div>
-          <div className="detail">
-            <h3>Employees</h3>
           </div>
           <div className="detail">
             <h3>Employees</h3>
@@ -195,7 +205,7 @@ const CompanyProfile = () => {
           )}
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

@@ -6,54 +6,56 @@ import Footer from './Footer';
 const CompanyList = () => {
     // Commented out the API call and provided sample data as text
     // const [loading, setLoading] = useState(true);
-    // const [data, setData] = useState([]);
+    const [data, setData] = useState([]);
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await fetch('http://3.145.60.152/api/v1/companies/');
-    //             const fetchedData = await response.json();
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://13.59.41.70/api/v1/companies/');
+                const fetchedData = await response.json();
 
-    //             setData(fetchedData);
-    //             setLoading(false);
-    //         } catch (error) {
-    //             console.error('An error occurred while fetching the data.', error);
-    //             setLoading(false);
-    //         }
-    //     };
+                setData(fetchedData);
+                // setLoading(false);
+            } catch (error) {
+                console.error('An error occurred while fetching the data.', error);
+                // setLoading(false);
+            }
+        };
 
-    //     fetchData();
-    // }, []);
+        fetchData();
+    }, []);
+
+    // console.log(data);
 
     // Sample data as text
-    const sampleData = [
-        {
-            id: 1,
-            logo: 'https://loremflickr.com/320/320/company',
-            name: 'Sample Company 1',
-            email: 'sample1@example.com',
-            location: 'Sample Location 1',
-            founder: 'Sample Founder 1',
-            employees: '100',
-            year: '2005',
-            valuation: '$1 billion',
-            services: ['Service 1', 'Service 2', 'Service 3'],
-            desc: 'Sample description for Company 1',
-        },
-        {
-            id: 2,
-            logo: 'https://loremflickr.com/320/320/company',
-            name: 'Sample Company 2',
-            email: 'sample2@example.com',
-            location: 'Sample Location 2',
-            founder: 'Sample Founder 2',
-            employees: '200',
-            year: '2010',
-            valuation: '$500 million',
-            services: ['Service 4', 'Service 5'],
-            desc: 'Sample description for Company 2',
-        },
-    ];
+    // const sampleData = [
+    //     {
+    //         id: 1,
+    //         logo: 'https://loremflickr.com/320/320/company',
+    //         name: 'Sample Company 1',
+    //         email: 'sample1@example.com',
+    //         location: 'Sample Location 1',
+    //         founder: 'Sample Founder 1',
+    //         employees: '100',
+    //         year: '2005',
+    //         valuation: '$1 billion',
+    //         services: ['Service 1', 'Service 2', 'Service 3'],
+    //         desc: 'Sample description for Company 1',
+    //     },
+    //     {
+    //         id: 2,
+    //         logo: 'https://loremflickr.com/320/320/company',
+    //         name: 'Sample Company 2',
+    //         email: 'sample2@example.com',
+    //         location: 'Sample Location 2',
+    //         founder: 'Sample Founder 2',
+    //         employees: '200',
+    //         year: '2010',
+    //         valuation: '$500 million',
+    //         services: ['Service 4', 'Service 5'],
+    //         desc: 'Sample description for Company 2',
+    //     },
+    // ];
 
     return (
         <>
@@ -61,7 +63,7 @@ const CompanyList = () => {
             <br></br>
             <div className="company-list">
                 <div className="company-list__container">
-                    {sampleData.map((company) => (
+                    {data.map((company) => (
                         <div className="company-card" key={company.id}>
 
                             <div className="company-card__details">
@@ -92,7 +94,7 @@ const CompanyList = () => {
                                         <span>Valuation:</span> {company.valuation}
                                     </div>
                                     <div className="info-item">
-                                        <span>Services:</span> {company.services.join(', ')}
+                                        <span>Services:</span> {Array.isArray(company.services) ? company.services.join(', ') : ''}
                                     </div>
                                 </div>
                             </div>

@@ -24,7 +24,10 @@ import TermsOfUse from './companyform/TermsOfUse';
 import CookiesPolicy from './companyform/CookiesPolicy';
 import CompanyProfile from './companyform/CompanyProfile';
 import CompanyList from './companyform/CompanyList';
-// import CompanyPost from './companyform/CompanyPost.jsx';
+import EditProject from './companyform/EditProject';
+import EmpList from './companyform/EmpList';
+import EditProjectDetails from './companyform/EditProjectDetails';
+
 
 function App() {
   return (
@@ -40,13 +43,16 @@ function App() {
           <Route exact path='/admin-dashBoard' element={<DashBoard />}></Route>
           <Route exact path='/list-projects' element={<ListProjects />}></Route>
           <Route exact path='/post-project' element={<AddProject />}></Route>
-          <Route exact path='/project-details' element={<ProjectDetails />}></Route>
+          <Route exact path='/admin-dashboard/project-details/:id' element={<ProjectDetails />}></Route>
+          <Route exact path='admin-dashboard/project-details/:num/edit-project/:id' element={<EditProjectDetails />}></Route>
+          <Route exact path='/edit-project' element={<EditProject />}></Route>
           <Route exact path='/contact' element={<ContactUs />}></Route>
           <Route exact path='/about' element={<About />}></Route>
           <Route exact path='/services' element={<Services />}></Route>
           <Route exact path='/privacy-policy' element={<PrivacyPolicy />}></Route>
           <Route exact path='/terms-of-use' element={<TermsOfUse />}></Route>
           <Route exact path='/cookies-policy' element={<CookiesPolicy />}></Route>
+          <Route exact path='/emp-list' element={<EmpList />}></Route>
           <Route exact path='/company_get' element={<CompanyGet />}></Route>
           <Route exact path='/company_post' element={<CompanyPost />}></Route>
           <Route exact path='/company_single' element={<GetSingleCompany />}></Route>
