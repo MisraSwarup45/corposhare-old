@@ -6,15 +6,16 @@ import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Cookies from "js-cookie";
+import ip from "./ip";
 
 export default function Register() {
   const [show, setshow] = useState(false);
   const navigate = useNavigate();
   const [info, setinfo] = useState({
-    email: "swarup@gmail.com",
-    username: "swarup",
-    password: "7015477816@msMS",
-    re_password: "7015477816@msMS",
+    email: "swarup23@gmail.com",
+    name: "Swarup",
+    password: "oom1234",
+    password2: "oom1234",
   });
 
   const memberinfo = (e) => {
@@ -28,7 +29,7 @@ export default function Register() {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://3.143.239.250/api/api/register/",
+        `http://${ip}/api/user/register`,
         {
           method: "POST",
           headers: {
@@ -36,24 +37,32 @@ export default function Register() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: info.email,
-            username: info.username,
-            password: info.password,
-            re_password: info.re_password,
+            email: "swarup28@gmail.com",
+            name: "Swarup",
+            password: "oom1234",
+            password2: "oom1234",
           }),
         }
       );
 
       const data = await response.json();
+      console.log(data.token.access);
       if (data.token) {
-        Cookies.set("token", data.token); // Store the token as a cookie
-        console.log(data.token);
+        const accessToken = data.token.access;
+        const refreshToken = data.token.refresh;
+        console.log("Access Token:", accessToken);
+        console.log("Refresh Token:", refreshToken);
+
+        Cookies.set("token", accessToken); 
+        Cookies.set("refresh", refreshToken);
+        // Store the access token as a cookie
         navigate("/");
       }
     } catch (err) {
       console.log(err);
     }
   };
+
 
   return (
     <>
@@ -81,15 +90,16 @@ export default function Register() {
           <div className="login_details_">
             <form onSubmit={handleChange} className="form_details">
               <div className="input_wrapper">
-                <label htmlFor="username">Company Name</label>
+                <label htmlFor="name">Company Name</label>
                 <br />
                 <input
-                  title="Username of the Person"
+                  title="name of the Person"
                   placeholder="Company Name"
                   className="input_box"
-                  type="username"
-                  name="username"
-                  id="username"
+                  value={info.name}
+                  type="name"
+                  name="name"
+                  id="name"
                   required
                   onChange={memberinfo}
                 />
@@ -101,6 +111,7 @@ export default function Register() {
                   title="Email of the Person"
                   placeholder="info@example.com"
                   className="input_box"
+                  value={info.email}
                   type="email"
                   name="email"
                   id="email"
@@ -116,6 +127,7 @@ export default function Register() {
                     className="input_inside"
                     placeholder="password"
                     type={show ? "text" : "password"}
+                    value={info.password}
                     required
                     name="password"
                     title="Password"
@@ -140,10 +152,11 @@ export default function Register() {
                     className="input_inside"
                     placeholder="Rewrite Password"
                     type={show ? "text" : "password"}
+                    value={info.password2}
                     required
-                    name="re_password"
+                    name="password2"
                     title="Re-Password of the Person"
-                    id="re_password"
+                    id="password2"
                     onChange={memberinfo}
                   />
                   <div

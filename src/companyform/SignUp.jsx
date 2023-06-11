@@ -1,4 +1,6 @@
 import { useState } from "react"
+import ip from "./ip";
+
 export default function Register(){
     const [info, setinfo] = useState({
         email:"",
@@ -18,29 +20,34 @@ export default function Register(){
       const handleChange = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch("http://3.143.239.250/api/api/register/", {
-                method: 'POST',
-                headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json'
-                },
-                body: `{
-                    "email": "${info.email}",
-                    "username": "${info.username}",
-                    "password": "7015477816@msMS",
-                    "re_password": "7015477816@msMS"
-                }`,
-                });
-                
-                response.json().then(data => {
-                    console.log(data);
-                  console.log(JSON.stringify(data));
-                });
-
+          const response = await fetch(`http://${ip}/api/api/register/`, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              email: "swarup21@gmail.com",
+              username: "Swarup",
+              password: "7015477816@msMS",
+              re_password: "7015477816@msMS"
+            })
+          });
+      
+          const data = await response.json();
+          const accessToken = data.access_token;
+          const refreshToken = data.refresh_token;
+      
+          console.log("Access Token:", accessToken);
+          console.log("Refresh Token:", refreshToken);
+      
+          // Continue with the rest of your logic, such as setting cookies or storing tokens in state.
+      
         } catch (err) {
           console.log(err);
         }
       }
+      
       
 
     return (<>
@@ -69,12 +76,12 @@ export default function Register(){
                         </div>
                     <div className="input_wrapper">
                           <label htmlFor="user">Username</label><br />
-                          <input title="Username of the Person" placeholder='info@email.com' className='input_box' type="text"  name="user" id='user' required  onChange={handlechange} />
+                          <input title="Username of the Person" placeholder='info@email.com' className='input_box' type="text"  name="user" id='user'   onChange={handlechange} />
                       </div>
                       <div className="input_wrapper">
                       <label htmlFor="pass">Password</label><br />
                       <div className="fake_box">
-                        <input className='input_inside' placeholder='password' type={show ? "text" :"password"} required  name="password" title="Password of the Person" id='pass' onChange={handlechange} />
+                        <input className='input_inside' placeholder='password' type={show ? "text" :"password"}   name="password" title="Password of the Person" id='pass' onChange={handlechange} />
                         <div className="text" onClick={e=>{setshow(cur=>!cur)}}>{show ? <AiFillEyeInvisible /> : <AiFillEye /> }</div>
                     </div>
                       </div>
