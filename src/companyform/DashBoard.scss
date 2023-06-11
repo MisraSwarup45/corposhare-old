@@ -2,9 +2,10 @@ $text-color: #212529;
 $primary-color: #38B6FF;
 
 .main_DashBoard{
-    height: 100vh;
+    height: 100%;
     width: 100vw;
     display: flex;
+    background-color: #eaf0f4;
     & .sideBar{
         position: relative;
         width: 17rem;

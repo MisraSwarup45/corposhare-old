@@ -11,72 +11,26 @@ const ListProjects = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    // Simulating an API call or data fetching
-    setTimeout(() => {
-      const fetchedData = [
-        {
-          company: 'ABC Corporation',
-          title: 'Web Developer',
-          pay: '45000',
-          duration: '3 months',
-          employee_required: '3',
-          skills: 'HTML, CSS, JavaScript',
-          description: 'Details about the project',
-          email: 'jane.smith@example.com',
-          contact_number: '987-654-3210',
-        },
-        {
-          company: 'XYZ Tech Solutions',
-          title: 'Data Analyst',
-          pay: '55000',
-          duration: '6 months',
-          employee_required: '5',
-          skills: 'SQL, Python',
-          description: 'Details about the project',
-          email: 'mark.johnson@example.com',
-          contact_number: '456-789-1230',
-        },
-        {
-          company: 'PQR Inc.',
-          title: 'Graphic Designer',
-          pay: '40000',
-          duration: '4 months',
-          employee_required: '2',
-          skills: 'Adobe Photoshop, Illustrator',
-          description: 'Details about the project',
-          email: 'emily.davis@example.com',
-          contact_number: '789-123-4560',
-        },
-        {
-          company: 'Tech Solutions Ltd.',
-          title: 'Software Developer',
-          pay: '65000',
-          duration: '12 months',
-          employee_required: '10',
-          skills: 'Java, Spring Boot',
-          description: 'Details about the project',
-          email: 'david.wilson@example.com',
-          contact_number: '321-654-9870',
-        },
-        {
-          company: 'ABC Corporation',
-          title: 'UI/UX Designer',
-          pay: '50000',
-          duration: '6 months',
-          employee_required: '3',
-          skills: 'Adobe XD, Sketch',
-          description: 'Details about the project',
-          email: 'sara.doe@example.com',
-          contact_number: '987-654-3210',
-        },
-      ];
-      
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://3.129.63.163/api/v1/projects/');
+        if (response.ok) {
+          const fetchedData = await response.json();
+          setData(fetchedData);
+          setFilteredData(fetchedData);
+          setLoading(false);
+        } else {
+          throw new Error('Failed to fetch data');
+        }
+      } catch (error) {
+        console.log('Error:', error.message);
+      }
+    };
 
-      setData(fetchedData);
-      setFilteredData(fetchedData);
-      setLoading(false);
-    }, 1000); // Simulating a 2-second delay
+    fetchData();
   }, []);
+
+  console.log(data);
 
   useEffect(() => {
     // Filter the data based on the search query
@@ -92,7 +46,7 @@ const ListProjects = () => {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="list-projects">
         <div className="search-bar">
           <input
@@ -112,12 +66,13 @@ const ListProjects = () => {
             {filteredData.map((item, index) => (
               <ListCard
                 key={index}
+                id={item.id}
                 company={item.company}
                 title={item.title}
                 pay={item.pay}
                 duration={item.duration}
-                employee_required={item.employee_required}
-                skills={item.skills}
+                employee_required={item.employees_required}
+                skills={item.skills_req}
                 description={item.description}
                 email={item.email}
                 contact_number={item.contact_number}
@@ -126,7 +81,7 @@ const ListProjects = () => {
           </div>
         )}
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
 import './ListCard.scss';
 
-const ListCard = ({ company, title, pay, duration, employee_required, skills, email, contact_number }) => {
+const ListCard = ({ id, company, title, pay, duration, employee_required, skills, email, contact_number }) => {
   return (
     <div className="list-card">
       <div className="list-card__info">
         <h2 className="list-card__company">{company}</h2>
+        <h1>{id}</h1>
         <p className="list-card__title">{title}</p>
         <p className="list-card__pay">Pay: {pay}</p>
         <p className="list-card__duration">Duration: {duration}</p>
@@ -26,7 +28,9 @@ const ListCard = ({ company, title, pay, duration, employee_required, skills, em
           </div>
           <p>{contact_number}</p>
         </div>
-        <button className="list-card__button">Apply Now</button>
+        <Link className='links-project' to={`project-details/${id}`}>
+          <button className="list-card__button">Apply Now</button>
+        </Link>
       </div>
     </div>
   );

@@ -34,17 +34,17 @@ const Footer = () => {
       </div>
       <div className="footer-links">
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Contact Us</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/contact">Contact Us</a></li>
         </ul>
       </div>
       <div className="footer-policy">
         <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Use</a></li>
-          <li><a href="#">Cookies Policy</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/terms-of-use">Terms of Use</a></li>
+          <li><a href="/cookies-policy">Cookies Policy</a></li>
         </ul>
       </div>
       <div className="footer-copy">© 2023 CorpoShare. All rights reserved.</div>

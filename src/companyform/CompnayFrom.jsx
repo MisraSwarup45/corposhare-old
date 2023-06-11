@@ -1,82 +1,146 @@
-import "./CompanyForm.scss";
-import Select from "react-select";
-import axios from "axios";
-import { useEffect, useState } from "react"
-import Cookies from "js-cookie";
-import jwt_decode from "jwt-decode";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import React, { useEffect, useState } from 'react';
+import Select from 'react-select';
+import Cookies from 'js-cookie';
+import jwt_decode from 'jwt-decode';
+import Navbar from './Navbar';
+import Footer from './Footer';
+import './CompanyForm.scss';
+import { useNavigate } from 'react-router-dom';
 
-function Companyform() {
+const CompanyForm = () => {
   const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
   ];
+
+  const currentDate = new Date(); // Get the current date
+  const yearEstablished = currentDate.toISOString();
+
   const [selectedOption, setSelectedOption] = useState([]);
-  const [image, setimage] = useState("");
-  const [userid, setuserid] = useState();
-  const [info, setinfo] = useState({
-    founder: "",
-    description: "",
-    services_offered: "",
-    year_established: "",
-    employees: "",
-    valuation: "",
-    user: ""
+  const [logo, setImage] = useState('');
+  const [userId, setUserId] = useState('');
+  const [info, setInfo] = useState({
+    // company_name: 1,
+    // logo: 'https://loremflickr.com/320/240',
+    // // email: 'workcs@gmail.com',
+    // services_offered: 'chocolate',
+    // // location: 'Chennai',
+    // founder: 'Mridul',
+    // employees: '20',
+    // year_established: '2023-06-08',
+    // valuation: '20 Million',
+    // description: 'This is a sample descriptionription',
+
+    "founder": "Mridul Gates",
+    "description": "This is a sample descriptionription",
+    "services_offered": "Testing",
+    "logo": "https://loremflickr.com/320/240",
+    "year_established": "2023-06-08",
+    "employees": 27,
+    "valuation": "20 Million",
+    "company_name": 1
+
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const TOKEN = Cookies.get('accesstoken');
-    if (TOKEN) {
-      var decoded = jwt_decode(TOKEN);
-      setuserid(decoded.user_id);
-    }
-  }, [])
+  // useEffect(() => {
+  //   const token = Cookies.get('accesstoken');
+  //   if (!token) {
+  //     navigate('/login');
+  //     return;
+  //   }
+  //   const decoded = jwt_decode(token);
+  //   setUserId(decoded.user_id);
+  // }, [navigate]);
 
-  const sending = async (e) => {
+  const handleChange = (e) => {
+    setInfo((prevInfo) => ({
+      ...prevInfo,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const userobj = new FormData();
-    userobj.append("name", info.founder);
-    userobj.append("logo", image);
-    userobj.append("email", info.email);
-    userobj.append("location", info.location);
-    userobj.append("founder", info.founder);
-    userobj.append("employees", info.employees);
-    userobj.append("year", info.year);
-    userobj.append("services", selectedOption);
-    userobj.append("desc", info.description);
+    setIsLoading(true);
+
+    const data = {
+      // name: info.company_name,
+      // logo: "https://loremflickr.com/320/240",
+      // email: info.email,
+      // location: info.location,
+      // founder: info.founder,
+      // employees: info.employees,
+      // year_established: info.year_established,
+      // valuation: info.valuation,
+      // services: selectedOption.map((option) => option.value),
+      // description: info.description,
+      // company_name: 1
+
+      // "founder": "Mridul Corpo",
+      // "descriptionription": "kjfalkdsjfoaihdsfiasdf",
+      // "services_offered": "gnsejrhejheriohriohriuwohbiurjbh",
+      // "logo": "Nuirgbueirgbeurigbeurgbue",
+      // "year_established_established": "2023-06-08",
+      // "employees": 7,
+      // "valuation": "slfnhtnhi",
+      // "company_name": 1
+    };
+
+    console.log(data);
 
     try {
-      const response = await axios.post("ASdf", FormData);
-      console.log(response);
-    } catch (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
-      }
-    }
-  };
-  const handlechange = (e) => {
-    setinfo((info) => ({
-      ...info,
-      [e.target.name]: e.target.name === "employees" ? parseInt(e.target.value) : e.target.value,
-    }));
-  }
+      const response = await fetch('http://3.129.63.163/api/v1/companies/', {
+        method: 'POST',
+        body: JSON.stringify(info),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-  const handleimage = (e) => {
-    setimage(e.target.files[0]);
+      if (response.ok) {
+        console.log('Application submitted successfully!');
+        // Reset form and state
+        setInfo({
+          company_name: '',
+          logo: '',
+          // email: '',
+          // location: '',
+          services_offered: '',
+          founder: '',
+          employees: '',
+          year_established: '',
+          valuation: '',
+          description: '',
+        });
+        setSelectedOption([]);
+        setImage('');
+        setErrorMessage('');
+      } else {
+        throw new Error('Network response was not ok');
+      }
+    } catch (error) {
+      console.log('Error:', error.message);
+      setErrorMessage('Error occurred');
+    }
+
+    setIsLoading(false);
   };
+
+
 
   return (
     <>
-    <Navbar />
+      <Navbar />
+      {/* <button onClick={deleteCompany}>Delete</button> */}
       <div className="main-company-form">
         <div className="company-from-wrapper">
           <div className="company-from-alpha">
@@ -85,81 +149,76 @@ function Companyform() {
               Start your <br />
               journey with us.
             </h4>
-            <p>Discover world's best community for freelancer's.</p>
+            <p>Discover the world's best community for freelancers.</p>
           </div>
 
           <div className="company-from-beta">
-
-            <form onSubmit={sending}>
+            <form onSubmit={handleSubmit}>
               <div className="from-beta-name">
                 <div className="div1">
-                  <label id="label" htmlFor="company-name">
-                    Company Name
-                  </label>
+                  <label htmlFor="company-name">Company Name</label>
                   <br />
                   <input
                     type="text"
+                    value={info.company_name}
                     id="company-name"
-                    name="compname"
+                    name="company_name"
                     required
-                    onChange={handlechange}
+                    onChange={handleChange}
                     placeholder="Eg: Cubix"
                   />
                 </div>
                 <div className="div2">
-                  <label htmlFor="images"> Logo </label>
+                  <label htmlFor="images">Logo</label>
                   <br />
                   <input
                     type="file"
                     id="images"
-                    accept="image/*"
-                    required
-                    onChange={handleimage}
+                    accept="logo/*"
+                    // required
+                    onChange={handleImageChange}
                   />
                 </div>
               </div>
               <div className="from-beta-email">
-                <div className="div1">
-                  <label id="label" htmlFor="company-email">
-                    Email
-                  </label>
+                {/* <div className="div1">
+                  <label htmlFor="company-email">Email</label>
                   <br />
                   <input
                     type="text"
                     id="company-email"
                     name="email"
+                    value={info.email}
                     required
-                    onChange={handlechange}
+                    onChange={handleChange}
                     placeholder="Eg: info@cubix.com"
                   />
-                </div>
-                <div className="div2">
-                  <label id="label" htmlFor="company-location">
-                    Location
-                  </label>
+                </div> */}
+                {/* <div className="div2">
+                  <label htmlFor="company-location">Location</label>
                   <br />
                   <input
                     type="text"
                     id="company-location"
                     name="location"
+                    value={info.location}
                     required
-                    onChange={handlechange}
+                    onChange={handleChange}
                     placeholder="Eg: Delhi"
                   />
-                </div>
+                </div> */}
               </div>
               <div className="from-beta-details">
                 <div className="div1">
-                  <label id="label" htmlFor="company-founder">
-                    Founder Name
-                  </label>
+                  <label htmlFor="company-founder">Founder Name</label>
                   <br />
                   <input
                     type="text"
                     id="company-founder"
                     name="founder"
+                    value={info.founder}
                     required
-                    onChange={handlechange}
+                    onChange={handleChange}
                     placeholder="Eg: John"
                   />
                 </div>
@@ -171,53 +230,64 @@ function Companyform() {
                       type="number"
                       id="company-services"
                       name="employees"
+                      value={info.employees}
                       required
-                      onChange={handlechange}
+                      onChange={handleChange}
                       placeholder="Eg: 50"
                     />
                   </div>
                   <div className="div3">
-                    <label id="label" htmlFor="company-year">
-                      Establishment Year{" "}
-                    </label>
+                    <label htmlFor="company-year_established">Establishment Year</label>
                     <br />
                     <input
                       type="number"
-                      id="company-year"
-                      name="year"
-                      required
-                      onChange={handlechange}
+                      id="company-year_established"
+                      name="year_established"
+                      value={info.year_established}
+                      // required
+                      onChange={handleChange}
                       placeholder="Eg: 2022"
                     />
                   </div>
+
                 </div>
               </div>
+              <div className="div4">
+                <label htmlFor="company-valuation">Valuation</label>
+                <br />
+                <input
+                  type="text"
+                  id="company-valuation"
+                  name="valuation"
+                  value={info.valuation}
+                  required
+                  onChange={handleChange}
+                  placeholder="Eg: $1,000,000"
+                />
+              </div>
               <div className="from-beta-dropdown">
-                <label id="label" htmlFor="company-services">
-                  Services Offered
-                </label>
+                <label htmlFor="company-services">Services Offered</label>
                 <div className="company-services-dropdown">
                   <Select
-                    required={true}
+                    // required={true}
                     isMulti={true}
-                    onChange={(e) => {
-                      setSelectedOption(e);
-                    }}
+                    onChange={(selectedOptions) =>
+                      setSelectedOption(selectedOptions)
+                    }
                     options={options}
                   />
                 </div>
               </div>
 
               <div className="from-beta-textarea">
-                <label id="label" htmlFor="text-desc">
-                  Description
-                </label>
+                <label htmlFor="text-description">descriptionription</label>
                 <br />
                 <textarea
-                  id="text-desc"
-                  name="desc"
+                  id="text-description"
+                  name="description"
+                  value={info.description}
                   required
-                  onChange={handlechange}
+                  onChange={handleChange}
                   placeholder="Write something about your company"
                 />
               </div>
@@ -232,9 +302,6 @@ function Companyform() {
       <Footer />
     </>
   );
-}
+};
 
-export default Companyform;
-
-
-
+export default CompanyForm;

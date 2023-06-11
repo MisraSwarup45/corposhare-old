@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from "react-router-dom";
 import './ProjectDetails.scss';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
 const ProjectDetails = () => {
-    const project = {
-        company: 'XYZ Tech Solutions',
-        title: 'Data Analyst',
-        pay: '55000',
-        duration: '6 months',
-        employee_required: '5',
-        skills: 'SQL, Python',
-        description: 'Sed et consectetur velit. Aliquam vestibulum orci sed lacus dignissim cursus. Nullam ac hendrerit tortor. Integer pretium sem ipsum, ut gravida quam placerat eu. Aliquam erat volutpat. Cras fringilla, neque non ultrices tempor, odio metus porta odio, et dapibus urna metus vitae sem. Sed efficitur fringilla ipsum, in condimentum nunc. Fusce laoreet tortor vitae nunc maximus ullamcorper. Quisque non urna nec tellus pulvinar efficitur. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed ac sapien eu felis vulputate pulvinar at at enim. Sed nec dignissim ligula, id volutpat ipsum. In rhoncus erat vitae justo faucibus, sed bibendum metus aliquam. Vestibulum porta metus ut tempor commodo.',
-        email: 'mark.johnson@example.com',
-        contact_number: '456-789-1230',
-    };
+    const [project, setProject] = useState({});
+
+    const { id } = useParams();
+
+    useEffect(() => {
+        // Make the GET request to fetch the project details
+        fetch(`http://3.129.63.163/api/v1/project/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setProject(data);
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error("Error fetching project:", error);
+            });
+
+        // and store it in the state variable
+    }, []);
 
     const [termsAccepted, setTermsAccepted] = useState(false);
 
@@ -29,6 +37,37 @@ const ProjectDetails = () => {
         }
     };
 
+    const handleDeleteClick = () => {
+        // Delete logic
+        fetch(`http://3.129.63.163/api/v1/project/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(project),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                // Handle the response or perform any additional actions
+                console.log('Project deleted successfully:', data);
+                setProject({
+                    title: "",
+                    employees_required: 0,
+                    skills_req: "",
+                    time_tobe_dedicated: "",
+                    pay: "",
+                    duration: "",
+                    description: "",
+                    created_at: "",
+                    updated_at: "",
+                    image: "",
+                    email: "",
+                    contact_number: "",
+                    comapny: 0,
+                });
+            });
+    };
+
     return (
         <div>
             <Navbar />
@@ -36,11 +75,13 @@ const ProjectDetails = () => {
                 <div className="project-details__content">
                     <section className="project-details__section">
                         <h2 className="project-details__title">{project.title}</h2>
-                        <p className="project-details__company">{project.company}</p>
+                        <p className="project-details__company">Company: {project.comapny}</p>
                         <p className="project-details__pay">Pay: {project.pay}</p>
                         <p className="project-details__duration">Duration: {project.duration}</p>
-                        <p className="project-details__employee-required">Employee Required: {project.employee_required}</p>
-                        <p className="project-details__skills">Skills: {project.skills}</p>
+                        <p className="project-details__employee-required">Employees Required: {project.employees_required}</p>
+                        <p className="project-details__skills">Skills Required: {project.skills_req}</p>
+                        <p className="project-details__created-at">Created At: {project.created_at}</p>
+                        <p className="project-details__updated-at">Updated At: {project.updated_at}</p>
                     </section>
                     <section className="project-details__section">
                         <h3 className="project-details__section-title">Description</h3>
@@ -71,6 +112,21 @@ const ProjectDetails = () => {
                         >
                             Apply Now
                         </button>
+                        <button
+                            className="project-details__delete-button"
+                            onClick={handleDeleteClick}
+                        >
+                            Delete
+                        </button>
+                        <Link to={`edit-project/${id}`}>
+                            <button
+                                className="project-details__update-button"
+
+                            >
+                                Update
+                            </button>
+                        </Link>
+
                     </section>
                 </div>
             </div>

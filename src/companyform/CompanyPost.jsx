@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
-import axios from "axios";
+import { useNavigate } from "react-router";
+
 export default function CompanyPost() {
   const [userid, setuserid] = useState();
+  const navigate = useNavigate();
+
   const [info, setinfo] = useState({
     founder: "",
     description: "",
@@ -17,31 +20,36 @@ export default function CompanyPost() {
 
   useEffect(() => {
     const TOKEN = Cookies.get('accesstoken');
+    if (!TOKEN) {
+      navigate('/login'); // Redirect to login page if not logged in
+      return;
+    }
     var decoded = jwt_decode(TOKEN);
     setuserid(decoded.user_id);
-  }, [])
+  }, []);
+
   async function req_post(e) {
     e.preventDefault();
-    const TOKEN = Cookies.get('accesstoken');
     try {
-      const data = await axios.post('http://3.139.87.105/api/api/companies/', {
-        founder: info.founder,
-        description: info.description,
-        services_offered: info.services_offered,
-        logo: info.logo,
-        year_established: info.year_established,
-        employees: info.employees,
-        valuation: info.valuation,
-        user: userid,
-      }, {
+      const response = await fetch('http://3.145.60.152/api/v1/companies/', {
+        method: 'POST',
         headers: {
-          Authorization: `Bearer ${TOKEN}`,
           'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({
+          founder: info.founder,
+          description: info.description,
+          services_offered: info.services_offered,
+          logo: "https://picsum.photos/200/300",
+          year_established: info.year_established,
+          employees: info.employees,
+          valuation: info.valuation,
+          user: userid,
+        })
       });
+      const data = await response.json();
       console.log(data);
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
   }
@@ -53,28 +61,32 @@ export default function CompanyPost() {
     }));
   }
 
-  return (<>
-    <form onSubmit={e => req_post(e)}>
-      <label htmlFor="founder" >Founder</label>
-      <input type="text" name="founder" onChange={handlechange} id="founder" />
-      <br />
-      <label htmlFor="description">description</label>
-      <input type="text" name="description" onChange={handlechange} id="description" />
-      <br />
-      <label htmlFor="services_offered">services_offered</label>
-      <input type="text" name="services_offered" id="services_offered" onChange={handlechange} />
-      <br />
-      <label htmlFor="logo">logo</label>
-      <input type="text" name="logo" id="logo" onChange={handlechange} />
-      <br />
-      <label htmlFor="year_established">Year Established</label>
-      <input type="text" name="year_established" id="year_established" onChange={handlechange} />
-      <br />
-      <label htmlFor="employees">Employees</label>
-      <input type="number" name="employees" id="employees" onChange={handlechange} />
-      <label htmlFor="valuation">Valuation</label>
-      <input type="text" name="valuation" id="valuation" onChange={handlechange} />
-      <input type="submit" value="submit" />
-    </form>
-  </>)
+  return (
+    <>
+      <form onSubmit={e => req_post(e)}>
+        <label htmlFor="founder">Founder</label>
+        <input type="text" name="founder" onChange={handlechange} id="founder" />
+        <br />
+        <label htmlFor="description">Description</label>
+        <input type="text" name="description" onChange={handlechange} id="description" />
+        <br />
+        <label htmlFor="services_offered">Services Offered</label>
+        <input type="text" name="services_offered" id="services_offered" onChange={handlechange} />
+        <br />
+        <label htmlFor="logo">Logo</label>
+        <input type="text" name="logo" id="logo" onChange={handlechange} />
+        <br />
+        <label htmlFor="year_established">Year Established</label>
+        <input type="text" name="year_established" id="year_established" onChange={handlechange} />
+        <br />
+        <label htmlFor="employees">Employees</label>
+        <input type="number" name="employees" id="employees" onChange={handlechange} />
+        <br />
+        <label htmlFor="valuation">Valuation</label>
+        <input type="text" name="valuation" id="valuation" onChange={handlechange} />
+        <br />
+        <input type="submit" value="Submit" />
+      </form>
+    </>
+  )
 }

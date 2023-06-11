@@ -19,11 +19,11 @@ const Navbar = () => {
           <Link to="/" className="navbar-item" onClick={toggleMenu}>
             Home
           </Link>
-          <Link to="/about" className="navbar-item" onClick={toggleMenu}>
-            About
+          <Link to="/admin-dashboard" className="navbar-item" onClick={toggleMenu}>
+            Dashboard
           </Link>
-          <Link to="/services" className="navbar-item" onClick={toggleMenu}>
-            Services
+          <Link to="/login" className="navbar-item" onClick={toggleMenu}>
+            Login
           </Link>
           <Link to="/contact" className="navbar-item" onClick={toggleMenu}>
             Contact
