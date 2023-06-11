@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
+import ip from "./ip";
 
 export default function AddEmp() {
     const [value, onChange] = useState(new Date());
@@ -39,7 +40,7 @@ export default function AddEmp() {
         };
 
         try {
-            const response = await fetch("http://3.129.63.163/api/v1/employees/", {
+            const response = await fetch(`http://${ip}/api/v1/employees/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

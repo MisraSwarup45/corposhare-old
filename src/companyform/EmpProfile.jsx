@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
+import ip from './ip';
 
 const EmpProfile = () => {
     const [employee, setEmployee] = useState(null);
@@ -9,7 +11,7 @@ const EmpProfile = () => {
     useEffect(() => {
         // Fetch data from the API
 
-        fetch(`http://3.129.63.163/api/v1/employee/${id}`)
+        fetch(`http://${ip}/api/v1/employee/${id}`)
             .then(response => response.json())
             .then(data => {
                 setEmployee(data);
@@ -22,7 +24,7 @@ const EmpProfile = () => {
     const handleDelete = (e) => {
         e.preventDefault();
         console.log('Delete button clicked!');
-        fetch(`http://3.129.63.163/api/v1/employee/${id}`, {
+        fetch(`http://${ip}/api/v1/employee/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -77,6 +79,9 @@ const EmpProfile = () => {
             <p>Hire Date: {employee.hire_date}</p>
             <p>Company: {employee.company}</p>
             <button onClick={handleDelete}>Delete</button>
+            <Link to={`/emp-profile/edit/${id}`}>
+                <button>Edit</button>
+            </Link>
         </div>
     );
 };

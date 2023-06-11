@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './CompanyList.scss';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import ip from './ip';
 
 const CompanyList = () => {
     // Commented out the API call and provided sample data as text
@@ -11,7 +12,7 @@ const CompanyList = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://3.129.63.163/api/v1/companies/');
+                const response = await fetch(`http://${ip}/api/v1/companies/`);
                 const fetchedData = await response.json();
 
                 setData(fetchedData);

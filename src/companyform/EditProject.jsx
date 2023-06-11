@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import ProjectForm from './AddProject';
+import ip from "./ip";
 
 export default function EditProject() {
     const { id } = useParams();
@@ -30,7 +31,7 @@ export default function EditProject() {
 
     useEffect(() => {
         // Fetch project data based on id and populate the form
-        fetch(`http://3.129.63.163/api/v1/projects/${id}/`)
+        fetch(`http://${ip}/api/v1/projects/${id}/`)
             .then((response) => response.json())
             .then((data) => {
                 setProject(data);
@@ -53,7 +54,7 @@ export default function EditProject() {
 
     const handleUpdateProject = () => {
         // Make the PUT request with the updated project data
-        fetch(`http://3.129.63.163/api/v1/projects/${id}/`, {
+        fetch(`http://${ip}/api/v1/projects/${id}/`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -74,7 +75,7 @@ export default function EditProject() {
     const handleDeleteProject = (e) => {
         // Make the DELETE request
         e.preventDefault();
-        fetch(`http://3.129.63.163/api/v1/projects/${id}/`, {
+        fetch(`http://${ip}/api/v1/projects/${id}/`, {
             method: "DELETE",
         })
             .then((response) => response.json())
@@ -92,7 +93,6 @@ export default function EditProject() {
     return (
         <>
             <Navbar />
-            <h1>{id}</h1>
             <div className="main_add_project">
                 <h2>Edit Project</h2>
                 <div className="project_details">

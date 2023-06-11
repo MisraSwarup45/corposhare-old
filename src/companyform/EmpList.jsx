@@ -3,6 +3,7 @@ import './EmpList.scss';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import { Link } from 'react-router-dom';
+import ip from './ip';
 
 const EmpList = () => {
   const [employees, setEmployees] = useState([]);
@@ -10,7 +11,7 @@ const EmpList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://3.129.63.163/api/v1/employees/');
+        const response = await fetch(`http://${ip}/api/v1/employees/`);
         const data = await response.json();
         setEmployees(data);
       } catch (error) {

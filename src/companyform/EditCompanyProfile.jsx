@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import Select from 'react-select';
+import ip from './ip';
 
 
 
@@ -44,7 +45,7 @@ const EditCompanyProfile = () => {
     useEffect(() => {
         const fetchCompanyInfo = async () => {
             try {
-                const response = await fetch(`http://3.129.63.163/api/v1/company/${id}`);
+                const response = await fetch(`http://${ip}/api/v1/company/${id}`);
                 if (response.ok) {
                     const data = await response.json();
                     setInfo(data);
@@ -60,7 +61,7 @@ const EditCompanyProfile = () => {
 
     const handleCompanyChanges = async (e) => {
         e.preventDefault();
-        fetch(`http://3.129.63.163/api/v1/company/${id}`, {
+        fetch(`http://${ip}/api/v1/company/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

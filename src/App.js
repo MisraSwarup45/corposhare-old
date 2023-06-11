@@ -29,6 +29,7 @@ import EmpList from './companyform/EmpList';
 import EditProjectDetails from './companyform/EditProjectDetails';
 import EditCompanyProfile from './companyform/EditCompanyProfile';
 import EmpProfile from './companyform/EmpProfile';
+import EditEmpProfile from './companyform/EditEmpProfile';
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
           <Route exact path='/cookies-policy' element={<CookiesPolicy />}></Route>
           <Route exact path='/emp-list' element={<EmpList />}></Route>
           <Route exact path='/emp-profile/:id' element={<EmpProfile />}></Route>
+          <Route exact path='/emp-profile/edit/:id' element={<EditEmpProfile />}></Route>
           <Route exact path='/company_get' element={<CompanyGet />}></Route>
           <Route exact path='/company_post' element={<CompanyPost />}></Route>
           <Route exact path='/company_single' element={<GetSingleCompany />}></Route>

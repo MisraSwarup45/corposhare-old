@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import ListCard from './ListCard';
 import './ListProjects.scss';
+import ip from './ip';
 
 const ListProjects = () => {
   const [loading, setLoading] = useState(true);
@@ -13,7 +14,7 @@ const ListProjects = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://3.129.63.163/api/v1/projects/');
+        const response = await fetch(`http://${ip}/api/v1/projects/`);
         if (response.ok) {
           const fetchedData = await response.json();
           setData(fetchedData);

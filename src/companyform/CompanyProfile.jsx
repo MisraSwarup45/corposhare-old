@@ -3,6 +3,7 @@ import './CompanyProfile.scss';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import ip from './ip';
 
 const CompanyProfile = () => {
   const [companyInfo, setCompanyInfo] = useState(null);
@@ -18,7 +19,7 @@ const CompanyProfile = () => {
   const handleSave = async () => {
     setIsEditing(false);
     try {
-      const response = await fetch('http://3.129.63.163/api/v1/company/1', {
+      const response = await fetch(`http://${ip}/api/v1/company/1`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -47,7 +48,7 @@ const CompanyProfile = () => {
   useEffect(() => {
     const fetchCompanyInfo = async () => {
       try {
-        const response = await fetch('http://3.129.63.163/api/v1/company/2');
+        const response = await fetch(`http://${ip}/api/v1/company/2`);
         if (response.ok) {
           const data = await response.json();
           setCompanyInfo(data);
@@ -70,7 +71,7 @@ const CompanyProfile = () => {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch('http://3.129.63.163/api/v1/company/1', {
+      const response = await fetch(`http://${ip}/api/v1/company/1`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

@@ -6,6 +6,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import './CompanyForm.scss';
 import { useNavigate } from 'react-router-dom';
+import ip from './ip';
 
 const CompanyForm = () => {
   const options = [
@@ -98,7 +99,7 @@ const CompanyForm = () => {
     console.log(data);
 
     try {
-      const response = await fetch('http://3.129.63.163/api/v1/companies/', {
+      const response = await fetch(`http://${ip}/api/v1/companies/`, {
         method: 'POST',
         body: JSON.stringify(info),
         headers: {
