@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './CompanyProfile.scss';
+import { useParams, Link } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
 const CompanyProfile = () => {
   const [companyInfo, setCompanyInfo] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+
+  // const { id } = useParams();
 
   const handleEdit = () => {
     console.log('Editing company information.');
@@ -15,7 +18,7 @@ const CompanyProfile = () => {
   const handleSave = async () => {
     setIsEditing(false);
     try {
-      const response = await fetch('http://13.59.41.70/api/v1/company/1/', {
+      const response = await fetch('http://3.129.63.163/api/v1/company/1', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -44,7 +47,7 @@ const CompanyProfile = () => {
   useEffect(() => {
     const fetchCompanyInfo = async () => {
       try {
-        const response = await fetch('http://13.59.41.70/api/v1/company/1');
+        const response = await fetch('http://3.129.63.163/api/v1/company/2');
         if (response.ok) {
           const data = await response.json();
           setCompanyInfo(data);
@@ -65,6 +68,36 @@ const CompanyProfile = () => {
 
   console.log(companyInfo);
 
+  const handleDelete = async () => {
+    try {
+      const response = await fetch('http://3.129.63.163/api/v1/company/1', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(companyInfo),
+
+
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Handle the response or perform any additional actions
+          console.log('Company deleted successfully:', data);
+          setCompanyInfo({
+            founder: "",
+            logo: "",
+            description: "",
+            year_established: "",
+            contact: "",
+            employees: 0,
+            valuation: 0,
+          });
+        })
+    } catch (error) {
+      console.error('An error occurred while deleting company information.', error);
+    }
+  };
+
   return (
     <>
       {/* <Navbar /> */}
@@ -82,12 +115,12 @@ const CompanyProfile = () => {
             {isEditing ? (
               <textarea
                 className="edit-field"
-                name="desc"
-                value={companyInfo.desc}
+                name="description"
+                value={companyInfo.description}
                 onChange={handleChange}
               />
             ) : (
-              <p>{companyInfo.desc}</p>
+              <p>{companyInfo.description}</p>
             )}
           </div>
           <div className="detail">
@@ -194,7 +227,7 @@ const CompanyProfile = () => {
           </div>
         </div>
         <div className="edit-actions">
-          {isEditing ? (
+          {/* {isEditing ? (
             <button className="save-button" onClick={handleSave}>
               Save
             </button>
@@ -202,7 +235,15 @@ const CompanyProfile = () => {
             <button className="edit-button" onClick={handleEdit}>
               Edit
             </button>
-          )}
+          )} */}
+
+          <Link to={`/company-profile/edit/2`}>
+            <button className="edit-button" onClick={handleEdit}>
+              Edit
+            </button>
+          </Link>
+
+          <button className="delete-button" onClick={handleDelete}>Delete</button>
         </div>
       </div>
       {/* <Footer /> */}
