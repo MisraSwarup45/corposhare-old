@@ -79,37 +79,34 @@ const EmpList = () => {
   }, []);
 
   return (
-    <div>
-    {/* <Navbar /> */}
-    <h1 className='emp-list'>Employee List</h1>
-    <div className="employee-list">
-      {employees.map((employee) => (
-        <div className="employee-card" key={employee.id}>
-          <div className="employee-ino">
-            <div className="employee-logo">
-              <img src={employee.profile_pic} alt="Profile Pic" />
-            </div>
-            <div className="employee-details">
-              <h2>{employee.name}</h2>
-              <p>Email: {employee.email}</p>
-              <p>Age: {employee.age}</p>
-              <p>Sex: {employee.sex}</p>
-              <p>Education: {employee.education}</p>
-              <p>Skills: {employee.skills}</p>
-              <p>Experience: {employee.experience}</p>
-              <p>
-                Resume: <a href={employee.resume}>Link</a>
-              </p>
-              <p>Department: {employee.department}</p>
-              <p>Contact: {employee.contact}</p>
-              <p>Hire Date: {employee.hire_date}</p>
-              <p>Company: {employee.company}</p>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-    {/* <Footer /> */}
+    <div className="emp-list-container">
+    <h1 className="emp-list">Employee List</h1>
+    <table className="employee-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Skills</th>
+          <th>Experience</th>
+          <th>Resume</th>
+          <th>Contact</th>
+        </tr>
+      </thead>
+      <tbody>
+        {employees.map((employee) => (
+          <tr key={employee.id}>
+            <td>{employee.name}</td>
+            <td>{employee.email}</td>
+            <td>{employee.skills}</td>
+            <td>{employee.experience}</td>
+            <td>
+              <a href={employee.resume}>Link</a>
+            </td>
+            <td>{employee.contact}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   </div>
   );
 };

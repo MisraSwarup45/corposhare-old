@@ -10,9 +10,7 @@ export default function AddEmp() {
         <div className="main_emp">
             <div className="header">
                 <h3>Add Staff</h3>
-                <div className="header_btn">
-                    <button>Hello</button>
-                </div>
+                
             </div>
             <div className="emp_info">
                 <div className="personal_info">
@@ -38,7 +36,7 @@ export default function AddEmp() {
                             <div className="input_con_double">
                                 <div className="input_con">
                                     <label htmlfor="gender">Gender:</label>
-                                    <select name="gender" id="gender">
+                                    <select name="gender" className="gender_type" id="gender">
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
                                         <option value="other">Other</option>
@@ -107,8 +105,6 @@ export default function AddEmp() {
                         </div>
                     </div>
                 </div>
-
-
 
                 <div className="other_info company_info">
                     <div className="company_details">
