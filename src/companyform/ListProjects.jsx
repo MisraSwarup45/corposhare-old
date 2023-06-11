@@ -13,7 +13,7 @@ const ListProjects = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://13.59.41.70/api/v1/projects/');
+        const response = await fetch('http://3.129.63.163/api/v1/projects/');
         if (response.ok) {
           const fetchedData = await response.json();
           setData(fetchedData);

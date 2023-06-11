@@ -5,8 +5,10 @@ import Footer from "./Footer";
 import ProjectForm from './AddProject';
 
 export default function EditProject() {
-    // const { projectId } = useParams();
-    const projectId = 2;
+    const { id } = useParams();
+    
+
+    
 
     const [project, setProject] = useState({
         title: "Swarup",
@@ -24,9 +26,11 @@ export default function EditProject() {
         company: 1,
     });
 
+
+
     useEffect(() => {
-        // Fetch project data based on projectId and populate the form
-        fetch(`http://18.118.164.38/api/v1/projects/${projectId}`)
+        // Fetch project data based on id and populate the form
+        fetch(`http://3.129.63.163/api/v1/projects/${id}/`)
             .then((response) => response.json())
             .then((data) => {
                 setProject(data);
@@ -34,7 +38,7 @@ export default function EditProject() {
             .catch((error) => {
                 console.error("Error fetching project:", error);
             });
-    }, [projectId]);
+    }, [id]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -49,7 +53,7 @@ export default function EditProject() {
 
     const handleUpdateProject = () => {
         // Make the PUT request with the updated project data
-        fetch(`http://18.118.164.38/api/v1/projects/${projectId}`, {
+        fetch(`http://3.129.63.163/api/v1/projects/${id}/`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -70,7 +74,7 @@ export default function EditProject() {
     const handleDeleteProject = (e) => {
         // Make the DELETE request
         e.preventDefault();
-        fetch(`http://http://18.118.164.38/api/v1/projects/${projectId}`, {
+        fetch(`http://3.129.63.163/api/v1/projects/${id}/`, {
             method: "DELETE",
         })
             .then((response) => response.json())
@@ -88,6 +92,7 @@ export default function EditProject() {
     return (
         <>
             <Navbar />
+            <h1>{id}</h1>
             <div className="main_add_project">
                 <h2>Edit Project</h2>
                 <div className="project_details">

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./Addproject.scss";
+// import {dotenv} from "dotenv";
+// dotenv.config();
 
 export default function AddProject() {
     const [project, setProject] = useState({
@@ -29,7 +31,7 @@ export default function AddProject() {
 
     const handleAddProject = () => {
         // Make the POST request with the project data
-        fetch("http://13.59.41.70/api/v1/projects/", {
+        fetch("http://3.129.63.163/api/v1/projects/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

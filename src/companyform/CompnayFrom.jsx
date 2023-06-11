@@ -14,18 +14,33 @@ const CompanyForm = () => {
     { value: 'vanilla', label: 'Vanilla' },
   ];
 
+  const currentDate = new Date(); // Get the current date
+  const yearEstablished = currentDate.toISOString();
+
   const [selectedOption, setSelectedOption] = useState([]);
-  const [image, setImage] = useState('');
+  const [logo, setImage] = useState('');
   const [userId, setUserId] = useState('');
   const [info, setInfo] = useState({
-    compname: '',
-    email: '',
-    location: '',
-    founder: '',
-    employees: '',
-    year: '',
-    valuation: '',
-    desc: '',
+    // company_name: 1,
+    // logo: 'https://loremflickr.com/320/240',
+    // // email: 'workcs@gmail.com',
+    // services_offered: 'chocolate',
+    // // location: 'Chennai',
+    // founder: 'Mridul',
+    // employees: '20',
+    // year_established: '2023-06-08',
+    // valuation: '20 Million',
+    // description: 'This is a sample descriptionription',
+
+    "founder": "Mridul Gates",
+    "description": "This is a sample descriptionription",
+    "services_offered": "Testing",
+    "logo": "https://loremflickr.com/320/240",
+    "year_established": "2023-06-08",
+    "employees": 27,
+    "valuation": "20 Million",
+    "company_name": 1
+
   });
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -58,23 +73,23 @@ const CompanyForm = () => {
     setIsLoading(true);
 
     const data = {
-      // name: info.compname,
+      // name: info.company_name,
       // logo: "https://loremflickr.com/320/240",
       // email: info.email,
       // location: info.location,
       // founder: info.founder,
       // employees: info.employees,
-      // year: info.year,
+      // year_established: info.year_established,
       // valuation: info.valuation,
       // services: selectedOption.map((option) => option.value),
-      // desc: info.desc,
+      // description: info.description,
       // company_name: 1
 
       // "founder": "Mridul Corpo",
-      // "description": "kjfalkdsjfoaihdsfiasdf",
+      // "descriptionription": "kjfalkdsjfoaihdsfiasdf",
       // "services_offered": "gnsejrhejheriohriohriuwohbiurjbh",
       // "logo": "Nuirgbueirgbeurigbeurgbue",
-      // "year_established": "2023-06-08",
+      // "year_established_established": "2023-06-08",
       // "employees": 7,
       // "valuation": "slfnhtnhi",
       // "company_name": 1
@@ -83,7 +98,7 @@ const CompanyForm = () => {
     console.log(data);
 
     try {
-      const response = await fetch('http://13.59.41.70/api/v1/companies/', {
+      const response = await fetch('http://3.129.63.163/api/v1/companies/', {
         method: 'POST',
         body: JSON.stringify(info),
         headers: {
@@ -95,14 +110,16 @@ const CompanyForm = () => {
         console.log('Application submitted successfully!');
         // Reset form and state
         setInfo({
-          compname: '',
-          email: '',
-          location: '',
+          company_name: '',
+          logo: '',
+          // email: '',
+          // location: '',
+          services_offered: '',
           founder: '',
           employees: '',
-          year: '',
+          year_established: '',
           valuation: '',
-          desc: '',
+          description: '',
         });
         setSelectedOption([]);
         setImage('');
@@ -118,7 +135,7 @@ const CompanyForm = () => {
     setIsLoading(false);
   };
 
-  
+
 
   return (
     <>
@@ -143,9 +160,9 @@ const CompanyForm = () => {
                   <br />
                   <input
                     type="text"
-
+                    value={info.company_name}
                     id="company-name"
-                    name="compname"
+                    name="company_name"
                     required
                     onChange={handleChange}
                     placeholder="Eg: Cubix"
@@ -157,37 +174,39 @@ const CompanyForm = () => {
                   <input
                     type="file"
                     id="images"
-                    accept="image/*"
-                    required
+                    accept="logo/*"
+                    // required
                     onChange={handleImageChange}
                   />
                 </div>
               </div>
               <div className="from-beta-email">
-                <div className="div1">
+                {/* <div className="div1">
                   <label htmlFor="company-email">Email</label>
                   <br />
                   <input
                     type="text"
                     id="company-email"
                     name="email"
+                    value={info.email}
                     required
                     onChange={handleChange}
                     placeholder="Eg: info@cubix.com"
                   />
-                </div>
-                <div className="div2">
+                </div> */}
+                {/* <div className="div2">
                   <label htmlFor="company-location">Location</label>
                   <br />
                   <input
                     type="text"
                     id="company-location"
                     name="location"
+                    value={info.location}
                     required
                     onChange={handleChange}
                     placeholder="Eg: Delhi"
                   />
-                </div>
+                </div> */}
               </div>
               <div className="from-beta-details">
                 <div className="div1">
@@ -197,6 +216,7 @@ const CompanyForm = () => {
                     type="text"
                     id="company-founder"
                     name="founder"
+                    value={info.founder}
                     required
                     onChange={handleChange}
                     placeholder="Eg: John"
@@ -210,19 +230,21 @@ const CompanyForm = () => {
                       type="number"
                       id="company-services"
                       name="employees"
+                      value={info.employees}
                       required
                       onChange={handleChange}
                       placeholder="Eg: 50"
                     />
                   </div>
                   <div className="div3">
-                    <label htmlFor="company-year">Establishment Year</label>
+                    <label htmlFor="company-year_established">Establishment Year</label>
                     <br />
                     <input
                       type="number"
-                      id="company-year"
-                      name="year"
-                      required
+                      id="company-year_established"
+                      name="year_established"
+                      value={info.year_established}
+                      // required
                       onChange={handleChange}
                       placeholder="Eg: 2022"
                     />
@@ -237,6 +259,7 @@ const CompanyForm = () => {
                   type="text"
                   id="company-valuation"
                   name="valuation"
+                  value={info.valuation}
                   required
                   onChange={handleChange}
                   placeholder="Eg: $1,000,000"
@@ -246,7 +269,7 @@ const CompanyForm = () => {
                 <label htmlFor="company-services">Services Offered</label>
                 <div className="company-services-dropdown">
                   <Select
-                    required={true}
+                    // required={true}
                     isMulti={true}
                     onChange={(selectedOptions) =>
                       setSelectedOption(selectedOptions)
@@ -257,11 +280,12 @@ const CompanyForm = () => {
               </div>
 
               <div className="from-beta-textarea">
-                <label htmlFor="text-desc">Description</label>
+                <label htmlFor="text-description">descriptionription</label>
                 <br />
                 <textarea
-                  id="text-desc"
-                  name="desc"
+                  id="text-description"
+                  name="description"
+                  value={info.description}
                   required
                   onChange={handleChange}
                   placeholder="Write something about your company"

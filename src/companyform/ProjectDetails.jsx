@@ -11,7 +11,7 @@ const ProjectDetails = () => {
 
     useEffect(() => {
         // Make the GET request to fetch the project details
-        fetch(`http://13.59.41.70/api/v1/project/${id}`)
+        fetch(`http://3.129.63.163/api/v1/project/${id}`)
             .then((response) => response.json())
             .then((data) => {
                 setProject(data);
@@ -39,7 +39,7 @@ const ProjectDetails = () => {
 
     const handleDeleteClick = () => {
         // Delete logic
-        fetch(`http://13.59.41.70/api/v1/project/${id}`, {
+        fetch(`http://3.129.63.163/api/v1/project/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
