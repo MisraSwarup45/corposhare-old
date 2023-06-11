@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router";
+import ip from "./ip";
 
 export default function CompanyPost() {
   const [userid, setuserid] = useState();
@@ -31,7 +32,7 @@ export default function CompanyPost() {
   async function req_post(e) {
     e.preventDefault();
     try {
-      const response = await fetch('http://3.145.60.152/api/v1/companies/', {
+      const response = await fetch(`http://${ip}/api/v1/companies/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -1,16 +1,69 @@
 import "./AddEmp.scss"
-import { useState } from 'react';
+import React, { useState } from 'react';
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
+import ip from "./ip";
 
 export default function AddEmp() {
     const [value, onChange] = useState(new Date());
-    return (<>
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [profilePic, setProfilePic] = useState('');
+    const [age, setAge] = useState('');
+    const [sex, setSex] = useState('');
+    const [education, setEducation] = useState('');
+    const [skills, setSkills] = useState('');
+    const [experience, setExperience] = useState('');
+    const [resume, setResume] = useState('');
+    const [department, setDepartment] = useState('');
+    const [contact, setContact] = useState('');
+    const [company, setCompany] = useState('');
+    const [hireDate, setHireDate] = useState(new Date());
+
+
+    const handleSave = async () => {
+        const data = {
+            name,
+            email,
+            profile_pic: profilePic,
+            age,
+            sex,
+            education,
+            skills,
+            experience,
+            resume,
+            department,
+            contact,
+            hire_date: hireDate.toISOString().split('T')[0],
+            company: 2
+        };
+
+        try {
+            const response = await fetch(`http://${ip}/api/v1/employees/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                // Success: handle the response
+                console.log("Data saved successfully");
+            } else {
+                // Error: handle the error
+                console.error("Failed to save data");
+            }
+        } catch (error) {
+            console.error("Failed to send the request:", error);
+        }
+    };
+
+    return (
         <div className="main_emp">
             <div className="header">
                 <h3>Add Staff</h3>
-                
             </div>
             <div className="emp_info">
                 <div className="personal_info">
@@ -24,40 +77,53 @@ export default function AddEmp() {
                         <div className="header">EMPLOYEE DETAILS</div>
                         <div className="input_wrapper">
                             <div className="input_con">
-                                <label htmlFor="firstname">First Name</label>
-                                <input type="text" id="firstname" name="firstname" />
+                                <label htmlFor="name">Name</label>
+                                <input type="text" id="name" name="name" value={name} onChange={e => setName(e.target.value)} />
                             </div>
-
-                            <div className="input_con">
-                                <label htmlFor="lastname">Last Name</label>
-                                <input type="text" id="lastname" name="lastname" />
-                            </div>
-
-                            <div className="input_con_double">
-                                <div className="input_con">
-                                    <label htmlfor="gender">Gender:</label>
-                                    <select name="gender" className="gender_type" id="gender">
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
-                                    </select>
-                                </div>
-                                <div className="input_con">
-                                    <label htmlFor="age">Age</label>
-                                    <input type="text" id="age" name="age" />
-                                </div>
-                            </div>
-
                             <div className="input_con">
                                 <label htmlFor="email">Email</label>
-                                <input type="email" name="email" id="email"></input>
+                                <input type="email" id="email" name="email" value={email} onChange={e => setEmail(e.target.value)} />
                             </div>
-
+                            <div className="input_con">
+                                <label htmlFor="profilePic">Profile Pic</label>
+                                <input type="text" id="profilePic" name="profilePic" value={profilePic} onChange={e => setProfilePic(e.target.value)} />
+                            </div>
+                            <div className="input_con">
+                                <label htmlFor="age">Age</label>
+                                <input type="number" id="age" name="age" value={age} onChange={e => setAge(e.target.value)} />
+                            </div>
+                            <div className="input_con">
+                                <label htmlFor="sex">Sex</label>
+                                <input type="text" id="sex" name="sex" value={sex} onChange={e => setSex(e.target.value)} />
+                            </div>
+                            <div className="input_con">
+                                <label htmlFor="education">Education</label>
+                                <input type="text" id="education" name="education" value={education} onChange={e => setEducation(e.target.value)} />
+                            </div>
+                            <div className="input_con">
+                                <label htmlFor="skills">Skills</label>
+                                <input type="text" id="skills" name="skills" value={skills} onChange={e => setSkills(e.target.value)} />
+                            </div>
+                            <div className="input_con">
+                                <label htmlFor="experience">Experience</label>
+                                <input type="number" id="experience" name="experience" value={experience} onChange={e => setExperience(e.target.value)} />
+                            </div>
+                            <div className="input_con">
+                                <label htmlFor="resume">Resume</label>
+                                <input type="text" id="resume" name="resume" value={resume} onChange={e => setResume(e.target.value)} />
+                            </div>
+                            <div className="input_con">
+                                <label htmlFor="department">Department</label>
+                                <input type="text" id="department" name="department" value={department} onChange={e => setDepartment(e.target.value)} />
+                            </div>
                             <div className="input_con">
                                 <label htmlFor="contact">Contact</label>
-                                <input type="number" id="contact" name="contact" />
+                                <input type="text" id="contact" name="contact" value={contact} onChange={e => setContact(e.target.value)} />
                             </div>
-
+                            <div className="input_con">
+                                <label htmlFor="hireDate">Hire Date</label>
+                                <DatePicker onChange={setHireDate} value={hireDate} id="hireDate" name="hireDate" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -68,15 +134,16 @@ export default function AddEmp() {
                             <div className="input_wrapper">
                                 <div className="input_con">
                                     <label htmlFor="company">Company Name</label>
-                                    <input type="text" id="company" name="company" />
+                                    <input type="text" id="company" name="company" value={company} onChange={(e) => setCompany(e.target.value)} />
                                 </div>
                                 <div className="input_con">
-                                    <label htmlFor="company">Department</label>
-                                    <input type="text" id="company" name="company" />
+                                    <label htmlFor="department">Department</label>
+                                    <input type="text" id="department" name="department" value={department} onChange={(e) => setDepartment(e.target.value)} />
                                 </div>
                                 <div className="input_con">
                                     <label htmlFor="hiredate">Hire Date</label>
-                                    <DatePicker onChange={onChange} value={value} id="hiredate" name="hiredate" />
+                                    <DatePicker onChange={setHireDate} value={hireDate} id="hiredate" name="hiredate" />
+
                                 </div>
                             </div>
                         </div>
@@ -94,18 +161,17 @@ export default function AddEmp() {
                                     <input type="text" id="experience" name="experience" />
                                 </div>
                                 <div className="input_con">
-                                    <label htmlFor="skill">Skills</label>
-                                    <input type="text" id="skill" name="skill" />
+                                    <label htmlFor="skills">Skills</label>
+                                    <input type="text" id="skills" name="skills" />
                                 </div>
                                 <div className="input_con">
-                                    <label htmlFor="zipcode">Resume</label>
-                                    <input className="resume" type="file" id="zipcode" name="zipcode" />
+                                    <label htmlFor="resume">Resume</label>
+                                    <input className="resume" type="file" id="resume" name="resume" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div className="other_info company_info">
                     <div className="company_details">
                         <div className="header">OTHER DETAILS</div>
@@ -128,12 +194,13 @@ export default function AddEmp() {
                     </div>
                     <div className="company_details">
                         <div className="info_details button_details">
-                            <button>Save</button>
+                            <button onClick={handleSave}>Save</button>
                             <button>Cancel</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </>)
+    );
 }
+

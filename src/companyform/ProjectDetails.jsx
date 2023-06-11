@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import './ProjectDetails.scss';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import ip from './ip';
 
 const ProjectDetails = () => {
     const [project, setProject] = useState({});
@@ -11,7 +12,7 @@ const ProjectDetails = () => {
 
     useEffect(() => {
         // Make the GET request to fetch the project details
-        fetch(`http://3.129.63.163/api/v1/project/${id}`)
+        fetch(`http://${ip}/api/v1/project/${id}`)
             .then((response) => response.json())
             .then((data) => {
                 setProject(data);
@@ -39,7 +40,7 @@ const ProjectDetails = () => {
 
     const handleDeleteClick = () => {
         // Delete logic
-        fetch(`http://3.129.63.163/api/v1/project/${id}`, {
+        fetch(`http://${ip}/api/v1/project/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

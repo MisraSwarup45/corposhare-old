@@ -27,6 +27,9 @@ import CompanyList from './companyform/CompanyList';
 import EditProject from './companyform/EditProject';
 import EmpList from './companyform/EmpList';
 import EditProjectDetails from './companyform/EditProjectDetails';
+import EditCompanyProfile from './companyform/EditCompanyProfile';
+import EmpProfile from './companyform/EmpProfile';
+import EditEmpProfile from './companyform/EditEmpProfile';
 
 
 function App() {
@@ -40,6 +43,7 @@ function App() {
           <Route exact path='/company-register' element={<Companyform />}> </Route>
           <Route exact path='/company-list' element={<CompanyList />}> </Route>
           <Route exact path='/company-profile' element={<CompanyProfile />}> </Route>
+          <Route exact path='/company-profile/edit/:id' element={<EditCompanyProfile />}></Route>
           <Route exact path='/admin-dashBoard' element={<DashBoard />}></Route>
           <Route exact path='/list-projects' element={<ListProjects />}></Route>
           <Route exact path='/post-project' element={<AddProject />}></Route>
@@ -53,6 +57,8 @@ function App() {
           <Route exact path='/terms-of-use' element={<TermsOfUse />}></Route>
           <Route exact path='/cookies-policy' element={<CookiesPolicy />}></Route>
           <Route exact path='/emp-list' element={<EmpList />}></Route>
+          <Route exact path='/emp-profile/:id' element={<EmpProfile />}></Route>
+          <Route exact path='/emp-profile/edit/:id' element={<EditEmpProfile />}></Route>
           <Route exact path='/company_get' element={<CompanyGet />}></Route>
           <Route exact path='/company_post' element={<CompanyPost />}></Route>
           <Route exact path='/company_single' element={<GetSingleCompany />}></Route>

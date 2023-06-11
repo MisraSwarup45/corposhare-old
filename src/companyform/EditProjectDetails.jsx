@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom";
+import ip from './ip';
 
 const EditProjectDetails = () => {
 
@@ -33,7 +34,7 @@ const EditProjectDetails = () => {
 
   useEffect(() => {
     // Make the GET request with the project id
-    fetch(`http://3.129.63.163/api/v1/project/${id}`)
+    fetch(`http://${ip}/api/v1/project/${id}`)
       .then((response) => response.json())
       .then((data) => {
         // Handle the response or perform any additional actions
@@ -48,7 +49,7 @@ const EditProjectDetails = () => {
 
   const updateProject = () => {
     // Make the PUT request with the project data
-    fetch(`http://3.129.63.163/api/v1/project/${id}`, {
+    fetch(`http://${ip}/api/v1/project/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

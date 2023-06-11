@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react"
 import Cookies from "js-cookie";
 import './AddCompanyProject.scss';
+import ip from "./ip";
 
 export default function AddCompanyProject() {
     const [info, setinfo] = useState({
@@ -22,7 +23,7 @@ export default function AddCompanyProject() {
         e.preventDefault();
         const TOKEN = Cookies.get('accesstoken');
         try {
-            const data = await axios.post('http://18.222.166.42/api/api/projects/', {
+            const data = await axios.post(`http://${ip}/api/api/projects/`, {
                 comapny: info.comapny,
                 created_at: info.created_at,
                 description: info.description,
