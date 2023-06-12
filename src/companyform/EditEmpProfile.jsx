@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import DatePicker from 'react-date-picker';
 import ip from './ip';
+
 // import dotenv from 'dotenv';
 
 // dotenv.config();
@@ -12,7 +13,7 @@ const EditEmpProfile = () => {
     const [employee, setEmployee] = useState({
         name: '',
         email: '',
-        profilePic: '',
+        profile_pic: '',
         age: '',
         sex: '',
         education: '',
@@ -23,7 +24,11 @@ const EditEmpProfile = () => {
         contact: '',
         company: '',
         hireDate: new Date(),
+        address1: '',
+        address2: '',
+        zip_code: '',
     });
+    const [submissionMessage, setSubmissionMessage] = useState(null);
 
     // const ip = process.env.REACT_APP_IP_ADDRESS;
 
@@ -42,6 +47,7 @@ const EditEmpProfile = () => {
             .then((response) => response.json())
             .then((data) => {
                 console.log('Employee updated successfully:', data);
+                setSubmissionMessage('Employee updated successfully!');
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -82,17 +88,16 @@ const EditEmpProfile = () => {
 
             <div className="main_emp">
                 <div className="header">
-
-                    <h3>Add Staff</h3>
+                    <h3>Edit Staff</h3>
                 </div>
                 <div className="emp_info">
                     <div className="personal_info">
-                        <div className="profile_img">
+                        {/* <div className="profile_img">
                             <div className="header">PROFILE IMAGE</div>
                             <div className="img_container">
                                 <img src="" alt="" />
                             </div>
-                        </div>
+                        </div> */}
                         <div className="emp_details">
                             <div className="header">EMPLOYEE DETAILS</div>
                             <div className="input_wrapper">
@@ -117,12 +122,12 @@ const EditEmpProfile = () => {
                                     />
                                 </div>
                                 <div className="input_con">
-                                    <label htmlFor="profilePic">Profile Pic</label>
+                                    <label htmlFor="profile_pic">Profile Pic</label>
                                     <input
                                         type="text"
-                                        id="profilePic"
-                                        name="profilePic"
-                                        value={employee.profilePic}
+                                        id="profile_pic"
+                                        name="profile_pic"
+                                        value={employee.profile_pic}
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -244,7 +249,7 @@ const EditEmpProfile = () => {
                                             onChange={handleChange}
                                         />
                                     </div>
-                                    <div className="input_con">
+                                    {/* <div className="input_con">
                                         <label htmlFor="hiredate">Hire Date</label>
                                         <DatePicker
                                             onChange={handleHireDateChange}
@@ -252,12 +257,12 @@ const EditEmpProfile = () => {
                                             id="hiredate"
                                             name="hiredate"
                                         />
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
                         <div className="company_details">
-                            <div className="header">EMPLOYEE SKILLS</div>
+                            {/* <div className="header">EMPLOYEE SKILLS</div>
                             <div className="info_details">
                                 <div className="input_wrapper">
                                     <div className="input_con">
@@ -277,26 +282,26 @@ const EditEmpProfile = () => {
                                         <input className="resume" type="file" id="resume" name="resume" />
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div className="other_info company_info">
                         <div className="company_details">
-                            <div className="header">
+                            <div className="company_details">
                                 <div className="header">OTHER DETAILS</div>
                                 <div className="info_details">
                                     <div className="input_wrapper">
                                         <div className="input_con">
                                             <label htmlFor="address1">Address Line 1</label>
-                                            <input type="text" id="address1" name="address1" />
+                                            <input type="text" id="address1" name="address1" value={employee.address1} onChange={handleChange} />
                                         </div>
                                         <div className="input_con">
                                             <label htmlFor="address2">Address Line 2</label>
-                                            <input type="text" id="address2" name="address2" />
+                                            <input type="text" id="address2" name="address2" value={employee.address2} onChange={handleChange} />
                                         </div>
                                         <div className="input_con">
                                             <label htmlFor="zipcode">Zipcode</label>
-                                            <input type="number" id="zipcode" name="zipcode" />
+                                            <input type="number" id="zipcode" name="zip_code" value={employee.zip_code} onChange={handleChange} />
                                         </div>
                                     </div>
                                 </div>
@@ -307,6 +312,12 @@ const EditEmpProfile = () => {
                                     <button>Cancel</button>
                                 </div>
                             </div>
+                            {submissionMessage && (
+                                <div className="submission_message success">
+                                    <span>&#10004;</span>
+                                    <p>{submissionMessage}</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

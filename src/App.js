@@ -48,7 +48,7 @@ function App() {
           <Route exact path='/list-projects' element={<ListProjects />}></Route>
           <Route exact path='/post-project' element={<AddProject />}></Route>
           <Route exact path='/admin-dashboard/project-details/:id' element={<ProjectDetails />}></Route>
-          <Route exact path='admin-dashboard/project-details/:num/edit-project/:id' element={<EditProjectDetails />}></Route>
+          <Route exact path='/admin-dashboard/project-details/:num/edit-project/:id' element={<EditProjectDetails />}></Route>
           <Route exact path='/edit-project' element={<EditProject />}></Route>
           <Route exact path='/contact' element={<ContactUs />}></Route>
           <Route exact path='/about' element={<About />}></Route>

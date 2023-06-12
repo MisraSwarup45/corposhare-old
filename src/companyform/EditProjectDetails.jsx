@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import ip from './ip';
 
 const EditProjectDetails = () => {
@@ -22,50 +23,58 @@ const EditProjectDetails = () => {
         comapny: 0,
     });
 
+    const [submissionMessage, setSubmissionMessage] = useState(null);
 
-    
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProject((prevProject) => ({
-      ...prevProject,
-      [name]: name === 'created_at' || name === 'updated_at' ? new Date(value).toISOString().split('T')[0] : value,
-    }));
-  };
 
-  useEffect(() => {
-    // Make the GET request with the project id
-    fetch(`http://${ip}/api/v1/project/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response or perform any additional actions
-        console.log('Project details fetched successfully:', data);
-        setProject(data);
-      })
-      .catch((error) => {
-        // Handle any errors
-        console.error('Error fetching project details:', error);
-      });
-  }, []);
 
-  const updateProject = () => {
-    // Make the PUT request with the project data
-    fetch(`http://${ip}/api/v1/project/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(project),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response or perform any additional actions
-        console.log('Project updated successfully:', data);
-      })
-      .catch((error) => {
-        // Handle any errors
-        console.error('Error updating project:', error);
-      });
-  };
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setProject((prevProject) => ({
+            ...prevProject,
+            [name]: name === 'created_at' || name === 'updated_at' ? new Date(value).toISOString().split('T')[0] : value,
+        }));
+    };
+
+    useEffect(() => {
+        // Make the GET request with the project id
+        fetch(`http://${ip}/api/v1/project/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                // Handle the response or perform any additional actions
+                console.log('Project details fetched successfully:', data);
+                setProject(data);
+            })
+            .catch((error) => {
+                // Handle any errors
+                console.error('Error fetching project details:', error);
+            });
+    }, []);
+
+    const updateProject = () => {
+        // Make the PUT request with the project data
+        fetch(`http://${ip}/api/v1/project/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(project),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                // Handle the response or perform any additional actions
+                console.log('Project updated successfully:', data);
+                setSubmissionMessage("Project Updated successfully");
+            })
+            .catch((error) => {
+                // Handle any errors
+                console.error('Error updating project:', error);
+            });
+    };
+
+    // const handleCancel = () => {
+    //     const navigate = useNavigate();
+    //     navigate('/');
+    // };
 
     return (
         <>
@@ -191,6 +200,12 @@ const EditProjectDetails = () => {
                         <button onClick={updateProject}>Update Project</button>
                         <button>Cancel</button>
                     </div>
+                    {submissionMessage && (
+                        <div className="submission_message success">
+                            <span>&#10004;</span>
+                            <p>{submissionMessage}</p>
+                        </div>
+                    )}
                 </div>
             </div>
             {/* <Footer /> */}

@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import "./Addproject.scss";
-// import {dotenv} from "dotenv";
-// dotenv.config();'
-
 import ip from "./ip";
 
 export default function AddProject() {
@@ -16,12 +13,13 @@ export default function AddProject() {
         description: "lorem ipsum",
         created_at: "2023-06-08",
         updated_at: "2023-06-08",
-        image: "Link here",
+        image: "https://loremflickr.com/320/240",
         email: "jane.corpo@corpo.com",
         contact_number: "987-65234-3210",
-        comapny: 1,
+        company: 1,
     });
 
+    const [submissionMessage, setSubmissionMessage] = useState(null);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -57,14 +55,34 @@ export default function AddProject() {
                     image: "",
                     email: "",
                     contact_number: "",
-                    comapny: 0,
+                    company: 0,
                 });
+                setSubmissionMessage("Project added successfully");
             })
             .catch((error) => {
                 // Handle any errors
                 console.error("Error adding project:", error);
             });
     };
+
+    const handleCancel = () => {
+        setProject({
+            title: "",
+            employees_required: 0,
+            skills_req: "",
+            time_tobe_dedicated: "",
+            pay: "",
+            duration: "",
+            description: "",
+            created_at: "",
+            updated_at: "",
+            image: "",
+            email: "",
+            contact_number: "",
+            company: 0,
+        });
+    };
+
 
     return (
         <>
@@ -188,11 +206,16 @@ export default function AddProject() {
 
                     <div className="input_con button_con">
                         <button onClick={handleAddProject}>Add Project</button>
-                        <button>Cancel</button>
+                        <button onClick={handleCancel}>Cancel</button>
                     </div>
+                    {submissionMessage && (
+                        <div className="submission_message success">
+                            <span>&#10004;</span>
+                            <p>{submissionMessage}</p>
+                        </div>
+                    )}
                 </div>
             </div>
-            {/* <Footer /> */}
         </>
     );
 }

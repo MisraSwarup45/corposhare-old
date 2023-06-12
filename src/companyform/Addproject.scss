@@ -182,4 +182,29 @@
       }
     }
   }
+
+  .submission_message {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background-color: #D1FFD7;
+    color: #155724;
+    border-radius: 0.3rem;
+
+    &.success {
+      background-color: #D4EDDA;
+      color: #155724;
+    }
+
+    & span {
+      font-size: 1.2rem;
+    }
+
+    & p {
+      font-size: 0.9rem;
+    }
+  }
+
 }

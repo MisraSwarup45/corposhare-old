@@ -20,6 +20,10 @@ export default function AddEmp() {
     const [contact, setContact] = useState('');
     const [company, setCompany] = useState('');
     const [hireDate, setHireDate] = useState(new Date());
+    const [address1, setAddress1] = useState('');
+    const [address2, setAddress2] = useState('');
+    const [zip_code, setZip_code] = useState('');
+    const [submissionMessage, setSubmissionMessage] = useState(null);
 
 
     const handleSave = async () => {
@@ -36,7 +40,10 @@ export default function AddEmp() {
             department,
             contact,
             hire_date: hireDate.toISOString().split('T')[0],
-            company: 2
+            company: 2,
+            address1,
+            address2,
+            zip_code
         };
 
         try {
@@ -50,7 +57,23 @@ export default function AddEmp() {
 
             if (response.ok) {
                 // Success: handle the response
+                setSubmissionMessage("Employee saved successfully");
                 console.log("Data saved successfully");
+                setName('');
+                setEmail('');
+                setProfilePic('');
+                setAge('');
+                setSex('');
+                setEducation('');
+                setSkills('');
+                setExperience('');
+                setResume('');
+                setDepartment('');
+                setContact('');
+                setHireDate(new Date());
+                setAddress1('');
+                setAddress2('');
+                setZip_code('');
             } else {
                 // Error: handle the error
                 console.error("Failed to save data");
@@ -67,12 +90,12 @@ export default function AddEmp() {
             </div>
             <div className="emp_info">
                 <div className="personal_info">
-                    <div className="profile_img">
+                    {/* <div className="profile_img">
                         <div className="header">PROFILE IMAGE</div>
                         <div className="img_container">
                             <img src="" alt="" />
                         </div>
-                    </div>
+                    </div> */}
                     <div className="emp_details">
                         <div className="header">EMPLOYEE DETAILS</div>
                         <div className="input_wrapper">
@@ -140,16 +163,11 @@ export default function AddEmp() {
                                     <label htmlFor="department">Department</label>
                                     <input type="text" id="department" name="department" value={department} onChange={(e) => setDepartment(e.target.value)} />
                                 </div>
-                                <div className="input_con">
-                                    <label htmlFor="hiredate">Hire Date</label>
-                                    <DatePicker onChange={setHireDate} value={hireDate} id="hiredate" name="hiredate" />
-
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div className="company_details">
-                        <div className="header">EMPLOYEE SKILLS</div>
+                        {/* <div className="header">EMPLOYEE SKILLS</div>
                         <div className="info_details">
                             <div className="input_wrapper">
                                 <div className="input_con">
@@ -169,7 +187,7 @@ export default function AddEmp() {
                                     <input className="resume" type="file" id="resume" name="resume" />
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className="other_info company_info">
@@ -179,15 +197,15 @@ export default function AddEmp() {
                             <div className="input_wrapper">
                                 <div className="input_con">
                                     <label htmlFor="address1">Address Line 1</label>
-                                    <input type="text" id="address1" name="address1" />
+                                    <input type="text" id="address1" name="address1" value={address1} onChange={(e)=>setAddress1(e.target.value)} />
                                 </div>
                                 <div className="input_con">
                                     <label htmlFor="address2">Address Line 2</label>
-                                    <input type="text" id="address2" name="address2" />
+                                    <input type="text" id="address2" name="address2" value={address2} onChange={(e)=>setAddress2(e.target.value)} />
                                 </div>
                                 <div className="input_con">
                                     <label htmlFor="zipcode">Zipcode</label>
-                                    <input type="number" id="zipcode" name="zipcode" />
+                                    <input type="number" id="zipcode" name="zipcode" value={zip_code} onChange={(e)=>setZip_code(e.target.value)} />
                                 </div>
                             </div>
                         </div>
@@ -198,6 +216,12 @@ export default function AddEmp() {
                             <button>Cancel</button>
                         </div>
                     </div>
+                    {submissionMessage && (
+                        <div className="submission_message success">
+                            <span>&#10004;</span>
+                            <p>{submissionMessage}</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
