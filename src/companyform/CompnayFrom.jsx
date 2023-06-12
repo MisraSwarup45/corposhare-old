@@ -22,26 +22,16 @@ const CompanyForm = () => {
   const [logo, setImage] = useState('');
   const [userId, setUserId] = useState('');
   const [info, setInfo] = useState({
-    // company_name: 1,
-    // logo: 'https://loremflickr.com/320/240',
-    // // email: 'workcs@gmail.com',
-    // services_offered: 'chocolate',
-    // // location: 'Chennai',
-    // founder: 'Mridul',
-    // employees: '20',
-    // year_established: '2023-06-08',
-    // valuation: '20 Million',
-    // description: 'This is a sample descriptionription',
-
-    "founder": "Mridul Gates",
-    "description": "This is a sample descriptionription",
-    "services_offered": "Testing",
-    "logo": "https://loremflickr.com/320/240",
-    "year_established": "2023-06-08",
-    "employees": 27,
-    "valuation": "20 Million",
-    "company_name": 1
-
+    company_name: 1,
+    logo: 'https://loremflickr.com/320/240',
+    email: 'workcs@gmail.com',
+    services_offered: "selectedOption",
+    location: 'Chennai',
+    founder: 'Mridul',
+    employees: '20',
+    year_established: '2023-06-08',
+    valuation: '20 Million',
+    description: 'This is a sample descriptionription',
   });
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -113,8 +103,8 @@ const CompanyForm = () => {
         setInfo({
           company_name: '',
           logo: '',
-          // email: '',
-          // location: '',
+          email: '',
+          location: '',
           services_offered: '',
           founder: '',
           employees: '',
@@ -182,7 +172,7 @@ const CompanyForm = () => {
                 </div>
               </div>
               <div className="from-beta-email">
-                {/* <div className="div1">
+                <div className="div1">
                   <label htmlFor="company-email">Email</label>
                   <br />
                   <input
@@ -194,8 +184,8 @@ const CompanyForm = () => {
                     onChange={handleChange}
                     placeholder="Eg: info@cubix.com"
                   />
-                </div> */}
-                {/* <div className="div2">
+                </div>
+                <div className="div2">
                   <label htmlFor="company-location">Location</label>
                   <br />
                   <input
@@ -207,7 +197,7 @@ const CompanyForm = () => {
                     onChange={handleChange}
                     placeholder="Eg: Delhi"
                   />
-                </div> */}
+                </div>
               </div>
               <div className="from-beta-details">
                 <div className="div1">

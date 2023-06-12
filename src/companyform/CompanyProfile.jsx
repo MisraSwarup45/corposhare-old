@@ -19,7 +19,7 @@ const CompanyProfile = () => {
   const handleSave = async () => {
     setIsEditing(false);
     try {
-      const response = await fetch(`http://${ip}/api/v1/company/1`, {
+      const response = await fetch(`http://${ip}/api/v1/company/3`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ const CompanyProfile = () => {
   useEffect(() => {
     const fetchCompanyInfo = async () => {
       try {
-        const response = await fetch(`http://${ip}/api/v1/company/2`);
+        const response = await fetch(`http://${ip}/api/v1/company/3`);
         if (response.ok) {
           const data = await response.json();
           setCompanyInfo(data);
@@ -71,7 +71,7 @@ const CompanyProfile = () => {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://${ip}/api/v1/company/1`, {
+      const response = await fetch(`http://${ip}/api/v1/company/3`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -238,7 +238,7 @@ const CompanyProfile = () => {
             </button>
           )} */}
 
-          <Link to={`/company-profile/edit/2`}>
+          <Link to={`/company-profile/edit/3`}>
             <button className="edit-button" onClick={handleEdit}>
               Edit
             </button>
