@@ -7,12 +7,13 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Cookies from "js-cookie";
 import ip from "./ip";
+import jwt_decode from 'jwt-decode';
 
 export default function Register() {
   const [show, setshow] = useState(false);
   const navigate = useNavigate();
   const [info, setinfo] = useState({
-    email: "swarup23@gmail.com",
+    email: "oom123@gmail.com",
     name: "Swarup",
     password: "oom1234",
     password2: "oom1234",
@@ -28,41 +29,38 @@ export default function Register() {
   const handleChange = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        `http://${ip}/api/user/register`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: "swarup28@gmail.com",
-            name: "Swarup",
-            password: "oom1234",
-            password2: "oom1234",
-          }),
-        }
-      );
+      const response = await fetch(`http://${ip}/api/user/register`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: info.email,
+          name: info.name,
+          password: info.password,
+          password2: info.password2,
+        }),
+      });
 
       const data = await response.json();
-      console.log(data.token.access);
       if (data.token) {
         const accessToken = data.token.access;
         const refreshToken = data.token.refresh;
-        console.log("Access Token:", accessToken);
-        console.log("Refresh Token:", refreshToken);
+        const decodedAccessToken = jwt_decode(accessToken);
+        const decodedRefreshToken = jwt_decode(refreshToken);
 
-        Cookies.set("token", accessToken); 
-        Cookies.set("refresh", refreshToken);
-        // Store the access token as a cookie
+        console.log("Decoded Access Token:", decodedAccessToken);
+        console.log("Decoded Refresh Token:", decodedRefreshToken);
+
+        Cookies.set("accesstoken", accessToken);
+        Cookies.set("refreshtoken", refreshToken);
         navigate("/");
       }
     } catch (err) {
       console.log(err);
     }
   };
-
 
   return (
     <>

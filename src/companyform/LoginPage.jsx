@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './LoginPage.scss'
+import './LoginPage.scss';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router';
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -7,19 +7,21 @@ import { Link } from 'react-router-dom';
 import { FaQuoteLeft } from "react-icons/fa";
 import Navbar from './Navbar';
 import Footer from './Footer';
+import jwt_decode from 'jwt-decode';
+import ip from './ip';
 
 export default function Login() {
-  const [show, setshow] = useState(false);
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
-  const [passmsg, setpassmsg] = useState("");
+  const [passmsg, setPassmsg] = useState("");
 
-  const [info, setinfo] = useState({
-    password: "",
-    username: ""
+  const [info, setInfo] = useState({
+    password: "oom1234",
+    email: "oom123@gmail.com"
   });
 
   const handlechange = (e) => {
-    setinfo((info) => ({
+    setInfo((info) => ({
       ...info,
       [e.target.name]: e.target.value,
     }));
@@ -46,22 +48,22 @@ export default function Login() {
           : verifiedList.length >= 3
             ? "Medium"
             : "Weak";
-      setpassmsg(strength);
+      setPassmsg(strength);
     } else {
-      setpassmsg("");
+      setPassmsg("");
     }
   }, [info.password]);
 
   const sendrequest = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://18.222.166.42/api/token/", {
+      const response = await fetch(`http://${ip}/api/v1/login/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: info.username,
+          email: info.email,
           password: info.password,
         }),
       });
@@ -69,15 +71,66 @@ export default function Login() {
         throw new Error("Failed to login");
       }
       const data = await response.json();
-      Cookies.set("accesstoken", `${data.access}`, { expires: 7 });
-      Cookies.set("refreshtoken", `${data.refresh}`, { expires: 7 });
-      if (true) {
-        navigate("/");
-      }
+      const { access, refresh } = data.token;
+      const decodedAccessToken = jwt_decode(access);
+      const decodedRefreshToken = jwt_decode(refresh);
+
+      console.log("Decoded Access Token:", decodedAccessToken);
+      console.log("Decoded Refresh Token:", decodedRefreshToken);
+
+      Cookies.set("accesstoken", access, { expires: 7 });
+      Cookies.set("refreshtoken", refresh, { expires: 7 });
+
+      // Set a timeout to refresh the access token before it expires
+      const accessTokenExpiration = decodedAccessToken.exp * 1000; // Convert expiration time to milliseconds
+      const tokenRefreshTimeout = accessTokenExpiration - Date.now() - 60000; // Refresh 1 minute before expiration
+      setTimeout(refreshAccessToken, tokenRefreshTimeout);
+
+      // Make API requests using the access token in the header
+    
+
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
   };
+
+  const refreshAccessToken = async () => {
+    try {
+      const refreshToken = Cookies.get("refreshtoken");
+
+      const response = await fetch(`http://${ip}/api/token/refresh/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${refreshToken}`, // Send the refresh token as a bearer token in the header
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to refresh access token");
+      }
+
+      const data = await response.json();
+      const { access } = data.token;
+      const decodedAccessToken = jwt_decode(access);
+
+      console.log("New Decoded Access Token:", decodedAccessToken);
+
+      // Update the access token in the cookies
+      Cookies.set("accesstoken", access, { expires: 7 });
+
+      // Schedule the next access token refresh
+      const accessTokenExpiration = decodedAccessToken.exp * 1000;
+      const tokenRefreshTimeout = accessTokenExpiration - Date.now() - 60000;
+      setTimeout(refreshAccessToken, tokenRefreshTimeout);
+    } catch (err) {
+      console.log(err);
+      // Handle any errors that occur during the refresh token request
+    }
+  };
+
+
 
   return (
     <>
@@ -104,14 +157,15 @@ export default function Login() {
               <h1>Get started</h1>
               <p>Login to your account now</p>
               <div className="input_wrapper">
-                <div className="text_label"><label htmlFor="user">Username</label></div>
+                <div className="text_label"><label htmlFor="user">email</label></div>
                 <input
-                  title="Username of the Person"
+                  title="email of the Person"
                   placeholder='info@example.com'
                   className='input_box'
                   type="text"
-                  name="username"
-                  id='username'
+                  name="email"
+                  id='email'
+                  value={info.email}
                   required
                   onChange={handlechange}
                 />
@@ -125,6 +179,7 @@ export default function Login() {
                     required
                     name="password"
                     title="Password of the Person"
+                    value={info.password}
                     id='pass'
                     onChange={handlechange}
                   />
