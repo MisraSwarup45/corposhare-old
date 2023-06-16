@@ -7,20 +7,32 @@ const About = () => {
         <div>
             <Navbar />
             <div className="about-section">
-                <div className="container">
-                    <h2 className="about-heading">About Us</h2>
-                    <p className="about-description">
-                        CorpoShare is a leading company that specializes in providing innovative workspace solutions for businesses of all sizes. With our state-of-the-art facilities and flexible membership plans, we help businesses thrive and grow.
-                    </p>
-                    <p className="about-description">
-                        Our mission is to create an inspiring and collaborative environment where professionals can connect, collaborate, and succeed. Whether you're a freelancer, a startup, or an established enterprise, we have the perfect workspace for you.
-                    </p>
-                    <p className="about-description">
-                        At CorpoShare, we understand the importance of a well-designed workspace in fostering productivity and creativity. That's why our workspaces are thoughtfully designed with modern amenities, comfortable furniture, and an inviting atmosphere.
-                    </p>
-                    <p className="about-description">
-                        CorpoShare today and experience the benefits of a premium workspace that is tailored to your needs. Focus on what you do best while we take care of the rest.
-                    </p>
+                <h1>About Us</h1>
+            </div>
+            <div className='our-mission'>
+                <div className='mission-heading'>Our Mission</div>
+                <div className='mission-content'>
+                    Our goal at our full-time employee sharing platform is to transform business collaboration and workforce optimisation. Our goal is to link businesses with a sizable network of highly qualified individuals so they can effectively use talent and resources, change with the times, and expand their businesses.
+                    We are dedicated to building a dynamic and adaptable work environment where individuals can discover rewarding opportunities that are in line with their skills and career aspirations and businesses may access a varied pool of competent employees. Our platform works to close the talent gap by enabling businesses to access the appropriate people at the right time and giving professionals rewarding job options.
+                </div>
+            </div>
+            <div className='our-vision'>
+                <div className='mission-heading'>Our Vision</div>
+                <div className='mission-content'>
+                    Our vision for full-time employee sharing is to create a dynamic and flexible workforce ecosystem where organizations seamlessly collaborate to optimize talent utilization. By fostering a culture of shared resources, we aim to maximize productivity, minimize underutilization, and unlock the full potential of employees. Through innovative platforms and collaborative partnerships, we envision a future where businesses can efficiently share skilled professionals, enabling cost-effective solutions, enhanced agility, and mutual growth. Our vision is to revolutionize the way organizations approach talent management, empowering companies to thrive in an evolving and interconnected global economy.
+                </div>
+            </div>
+            <div className='our-values'>
+                <div className='mission-heading'>Our Values</div>
+                <div className='mission-content'>
+                    At CorpoShare, our full-time employee sharing platform is built on the values of collaboration, efficiency, flexibility, fairness, growth, trust, and innovation. We believe in harnessing the power of collaboration to optimize workforce utilization, while providing businesses and employees with flexible opportunities to adapt and grow. Through transparent and equitable practices, we foster a culture of trust, enabling businesses to leverage a dynamic and versatile workforce. Our commitment to innovation drives us to continually enhance the full-time employee sharing experience, empowering organizations to thrive in a rapidly evolving landscape.                </div>
+            </div>
+            <div className='our-team-heading'>Our Team</div>
+            <div className='main-box'>
+                <div className='our-team'>
+                    <div className='member'>Karan</div>
+                    <div className='member'>Mridul</div>
+                    <div className='member'>Swarup</div>
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
-$primary-color: #38B6FF;
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Red+Hat+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+$primary-color: #FFFF;
 $secondary-color: #f8f9fa;
 $accent-color: #0056b3;
 
@@ -17,10 +18,13 @@ $accent-color: #0056b3;
     max-width: 1200px;
 
     .navbar-logo {
-      color: #fff;
+      color: #040404;
       font-size: 24px;
       text-decoration: none;
       font-weight: bold;
+    }
+    .logostyles{
+      width: 40%;
     }
 
     .navbar-menu {
@@ -32,10 +36,11 @@ $accent-color: #0056b3;
       padding: 0;
 
       .navbar-item {
-        color: #fff;
+        color: #111111;
         text-decoration: none;
         padding: 0 15px;
         font-size: 18px;
+        // font-family: ;
         transition: color 0.3s ease;
 
         &:hover {

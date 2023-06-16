@@ -8,10 +8,8 @@ const LandingCat = () => {
         <div>
             <section class="home-category">
                 <div class="header">
-                    <h1>CorpoShare<span> <br /> Categories.</span></h1>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia nostrum dignissimos sequi
-                        delectus quos recusandae nobis id. Nihil non laboriosam reprehenderit perferendis id mollitia
-                        dolore eos, asperiores, illum nam autem!</p>
+                    <h1>Our platform provides a wide variety of advantages</h1>
+                   
                 </div>
                 <div class="list">
                     <div class="one">

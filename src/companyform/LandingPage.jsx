@@ -5,6 +5,9 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import LandingCat from './LandingCat';
 import LandingAbout from './LandingAbout';
+import doodle1 from '../img/doodle1.png'
+import plane from '../img/plane.png'
+
 
 const LandingPage = () => {
     const headerAnimation = useSpring({
@@ -32,7 +35,7 @@ const LandingPage = () => {
         <>
             <Navbar />
             <div className="landing-page">
-                <animated.header style={headerAnimation}>
+                {/* <animated.header style={headerAnimation}>
                     <h1>CorpoShare</h1>
                     <p>Connecting Businesses and Professionals</p>
                 </animated.header>
@@ -43,7 +46,21 @@ const LandingPage = () => {
                 </animated.main>
                 <animated.footer style={footerAnimation}>
                     <p>&copy; 2023 CorpoShare. All rights reserved.</p>
-                </animated.footer>
+                </animated.footer> */}
+                <div className='home-content'>
+                    <div className='tag1'>Building</div>
+                    <div className='tag2'><strong>Together</strong></div>
+                    <div className='tag3'>Collaborate, create and achieve together</div>
+
+                    <button>Get Started</button>
+                </div>
+                <div className='doodle-div'>
+                    <img className='doodle2' src={plane}></img>
+                    <img className='doodle1' src={doodle1}></img>
+                </div>
+
+                {/* <div><img className='doodle1' src={doodle1}></img></div> */}
+               
             </div>
             <LandingCat />
             <LandingAbout />

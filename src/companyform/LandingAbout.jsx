@@ -12,8 +12,9 @@ const LandingAbout = () => {
                     <span>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos, quo consequuntur eum repudiandae
                             est nihil sapiente odio rerum incidunt doloremque reprehenderit.</p>
-                        <div><button class="about-getstarted">Get Started</button></div>
+                        
                     </span>
+                    <div><button class="about-getstarted">Get Started</button></div>
                 </div>
                 <div class="home-gallery-2">
                     <div class="box box-1"></div>

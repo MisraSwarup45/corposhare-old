@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.scss';
+import corposharelogo from '../img/corposharelogo.png'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,7 +14,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
-          CorpoShare
+          <img className='logostyles' src={corposharelogo}></img>
         </Link>
         <div className={`navbar-menu ${isMenuOpen ? 'open' : ''}`}>
           <Link to="/" className="navbar-item" onClick={toggleMenu}>
