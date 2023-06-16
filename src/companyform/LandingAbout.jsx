@@ -10,9 +10,7 @@ const LandingAbout = () => {
                     <h3>About us</h3>
                     <h1>People Who care about your growth</h1>
                     <span>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos, quo consequuntur eum repudiandae
-                            est nihil sapiente odio rerum incidunt doloremque reprehenderit.</p>
-                        
+                        <p>Collaborate, create, achieve together. Harnessing collective effort and diverse perspectives, we foster innovation and exceed individual limits. United as a team, we unlock our full potential, turning visions into reality. Join us on this collaborative journey, shaping a better future through shared achievements.</p>
                     </span>
                     <div><button class="about-getstarted">Get Started</button></div>
                 </div>
